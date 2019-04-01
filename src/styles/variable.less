@@ -1,0 +1,374 @@
+@f10: 10px;
+@f12: 12px;
+@f14: 14px;
+@f15: 15px;
+@f16: 16px;
+@f17: 17px;
+@f18: 18px;
+
+@normalC: #333;
+@grayC: #999;
+@borderC: #e5e5e5;
+@sunC: #FF9800;
+@priceC: #ff6400;
+@f64C: #f64000;
+@redC: #F44336;
+@dangerC: #FF4444;
+@backC: #f7f7f7;
+@deepBackC: #f0f0f0;
+@activeC: #409EFF;
+@wxC: #25B33D;
+@baseC: #FFAB58;
+@gapW: 10px;
+@delay: .3s;
+
+.fz(@fz: @f14) {
+  font-size: @fz; /*px*/
+}
+
+// 函数不会被最终打包,更加干净,因此不使用类的方式.
+
+// region 字体大小设置
+.f10(@fz: @f10) {
+  .fz(@fz);
+}
+
+.f12(@fz: @f12) {
+  .fz(@fz);
+}
+
+.f14(@fz: @f14) {
+  .fz(@fz);
+}
+
+.f15(@fz: @f15) {
+  .fz(@fz);
+}
+
+.f16(@fz: @f16) {
+  .fz(@fz);
+}
+
+.f17(@fz: @f17) {
+  .fz(@fz);
+}
+
+.f18(@fz: @f18) {
+  .fz(@fz);
+}
+
+// endregion
+
+.shadow(@val: 0 0 10px rgba(0,0,0,0.1)) {
+  box-shadow: @val;
+}
+
+.linear(@dir: to bottom,@c1,@c2) {
+  background-image: linear-gradient(@dir, @c1, @c2);
+}
+
+.fill(@bottom: 0,@top: 0) {
+  position: fixed !important;
+  bottom: @bottom;
+  right: 0;
+  left: 0;
+  top: @top;
+}
+
+.br(@radius: 4px) {
+  border-radius: @radius;
+}
+
+.card(@h: 45px) {
+  .li(@h);
+}
+
+.ex_click(@size:10px, @select: before) {
+  position: relative;
+  &:before {
+    content: '';
+    left: -@size;
+    top: -@size;
+    right: -@size;
+    bottom: -@size;
+    position: absolute;
+  }
+}
+
+.text-panel(@left: 100px) {
+  .left {
+    .title {
+      .ellipsis(100%);
+    }
+  }
+  .right {
+    text-align: right;
+
+    .value {
+      .two-line;
+    }
+  }
+}
+
+.setCenter(@h) {
+  height: @h;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.li(@h: 45px, @c: #f0f0f0) {
+  .li-card(@h);
+  &:not(:last-of-type) {
+    .border(@c);
+  }
+}
+
+.img(@w,@h) {
+  height: @h;
+  width: @w;
+  img {
+    max-height: 100%;
+    max-width: 100%;
+  }
+}
+
+.li-card(@h: 45px) {
+  .f14;
+  height: @h;
+  line-height: @h;
+  display: flex;
+  padding-right: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.full-column(@h: 50px) {
+  display: flex;
+  height: @h;
+  justify-content: space-between;
+  flex-direction: column;
+  p {
+    line-height: 1.1;
+  }
+}
+
+.cards(@h: 98px, @imgH: 66px, @imgW: 106px, @descW: 220px, @descH: 66px) {
+  .li-card(@h);
+  position: relative;
+  .img {
+    width: @imgW;
+    height: @imgH;
+
+    img {
+      max-height: 100%;
+      max-width: 100%;
+    }
+  }
+  .desc {
+    .full-column(@descH);
+    width: @descW;
+
+    .name {
+      .f15;
+    }
+
+    .limit {
+      .f12;
+      color: @grayC;
+    }
+  }
+}
+
+.center(@left: 50%, @top: -50%) {
+  transform: translate3d(-50%, @top, 0);
+  position: absolute;
+  left: @left;
+  top: 50%;
+}
+
+.border(@color: #f0f0f0) {
+  position: relative;
+  &:before {
+    transform: scaleY(.5);
+    transform-origin: 50% 0;
+    background-color: @color;
+    pointer-events: none;
+    position: absolute;
+    height: 1px;
+    content: '';
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
+}
+
+.double-line( @c: #dadada, @h:37px, @w:68px) {
+  .f14;
+  height: @h;
+  line-height: @h;
+  text-align: center;
+  &:before, &:after {
+    content: '';
+    top: -6px;
+    width: @w;
+    margin: 0 10px;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px solid @c; /*no*/
+  }
+}
+
+.layout(@gap: 10px) {
+  background-color: #fff;
+  margin-bottom: @gap;
+}
+
+.price(@fz: 28px, @color: #333) {
+  &:before {
+    .fz(@fz);
+    color: @color;
+    content: '￥';
+  }
+}
+
+.required(@l: 0px) {
+  position: relative;
+  &:after {
+    content: '*';
+    color: @dangerC;
+    position: absolute;
+    left: @l;
+  }
+}
+
+.two-line() {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-height: 1.3;
+  overflow: hidden;
+}
+
+.translate(@x:0,@y:0,@z:0) {
+  transform: translate3d(@x, @y, @z);
+}
+
+@color: #ffa44f;
+.linear-gradient(@baseColor, @newColor:saturate(@baseColor, 10%), @dir: bottom) {
+  background-image: linear-gradient(to @dir, @baseColor, @newColor);
+}
+
+.ellipsis(@w:auto) {
+  width: @w;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+
+// 左右结构的面板,中间.5px线隔开,板块上下结构
+.panel-wrap(@h: 80px,@fz: 54px, @c1:#FFA200, @c2:@priceC, @bc: #fff, @pe: .8) {
+  margin-bottom: 10px;
+  background-color: @bc;
+  display: flex;
+  height: @h;
+  position: relative;
+  .panel {
+    width: 50%;
+    .setCenter(@h);
+    flex-direction: column;
+
+    .num {
+      .fz(@fz);
+      color: @c1;
+      margin-bottom: 10px;
+    }
+  }
+  .card {
+    .num {
+      color: @c2;
+    }
+  }
+  .line {
+    height: @h * @pe;
+    width: 1px;
+    position: absolute;
+    transform: scaleX(.5) translateY(-50%);
+    top: 50%;
+    left: 50%;
+    background-color: #f0f0f0;
+  }
+}
+
+.column-wrap(@h: 100px) {
+  height: @h;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .column-item {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
+.left-icon() {
+  padding-left: 20px;
+  position: relative;
+  .left-icon {
+    position: absolute;
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    left: 7px;
+    top: 2px;
+  }
+}
+
+.left-line() {
+  position: relative;
+  &:before {
+    content: '';
+    border-right: 1px dashed #e5e5e5;
+    position: absolute;
+    right: 0;
+    top: 20px;
+    height: 50px;
+  }
+}
+
+.hover-line() {
+  position: relative;
+  &:before, &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid transparent;
+    transition: .3s;
+  }
+  &:before {
+    transform: scaleX(0);
+    border-top-color: #1890FF;
+    border-bottom-color: #1890FF;
+  }
+  &:after {
+    transform: scaleY(0);
+    border-left-color: #1890FF;
+    border-right-color: #1890FF;
+  }
+  &:hover {
+    &:before {
+      transform: scaleX(1);
+    }
+
+    &:after {
+      transform: scaleY(1);
+    }
+  }
+}

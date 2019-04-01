@@ -1,0 +1,37 @@
+// 公共样式,一个页面只允许引入一次
+@import "./variable";
+
+.layout-block {
+  background-color: #fff;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 16px;
+
+  .block-wrap {
+    padding-left: 20px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.cf:before, .cf:after {
+  content: '';
+  display: table;
+  width: 0;
+}
+
+.cf:after {
+  clear: both;
+}
+
+.ex_click {
+  .ex_click;
+}
