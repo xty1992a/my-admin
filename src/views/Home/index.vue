@@ -13,7 +13,8 @@
 	data() {
 	  return {}
 	},
-	created() {
+	async created() {
+	  await this.$store.dispatch('User/getUserInfo')
 	},
 	methods: {},
 	computed: {},

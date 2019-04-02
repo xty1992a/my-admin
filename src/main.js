@@ -8,7 +8,7 @@ import Element from 'element-ui'
 import './styles/index.less'
 import 'element-ui/lib/theme-chalk/index.css'
 import store from './store/index.js'
-import './mock'
+// import './mock'
 
 Vue.use(Element, {size: 'medium'})
 

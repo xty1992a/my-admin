@@ -1,5 +1,3 @@
-import {param2Obj} from '@/utils'
-
 const userMap = {
   admin: {
 	roles: ['admin'],
@@ -17,23 +15,15 @@ const userMap = {
   },
 }
 
-export default {
+module.exports = {
   loginByUsername: config => {
-	const username = config.body.get('username')
-	return {
-	  success: !!userMap[username],
-	  data: userMap[username],
-	}
+	const username ='admin'// config.body.get('username')
+	return userMap[username]
   },
-  getUserInfo: config => {
-	const username = config.body.get('username')
-	return {
-	  success: !!userMap[username],
-	  data: userMap[username],
-	}
+  getUserInfo: req => {
+	console.log(req.params)
+	let username = 'admin'
+	return userMap[username]
   },
-  logout: () => ({
-	success: true,
-	data: null,
-  }),
+  logout: () => true,
 }

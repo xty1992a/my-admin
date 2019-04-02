@@ -5,7 +5,7 @@
         <router-link
                 v-for="tag in visitedRoutes"
                 class="tag-item hover-border"
-                :class="tag.fullPath===$route.fullPath?'active':''"
+                :class="tag.fullPath.toLowerCase()===$route.fullPath.toLowerCase()?'active':''"
                 :to="tag.fullPath"
                 :key="tag.fullPath">
           <span>{{tag.meta.title}}</span>

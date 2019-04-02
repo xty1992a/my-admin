@@ -18,10 +18,10 @@ export default {
   mutations: {
 	ADD_TAG: (state, route) => {
 	  if (!route.meta || !route.meta.isTag) return
-	  if (state.visitedRoutes.map(it => it.fullPath).includes(route.fullPath)) return
+	  if (state.visitedRoutes.map(it => it.fullPath.toLowerCase()).includes(route.fullPath.toLowerCase())) return
 	  state.visitedRoutes.push(route)
 	},
-	DEL_TAG: (state, route) => state.visitedRoutes = state.visitedRoutes.filter(it => it.fullPath !== route.fullPath),
+	DEL_TAG: (state, route) => state.visitedRoutes = state.visitedRoutes.filter(it => it.fullPath.toLowerCase() !== route.fullPath.toLowerCase()),
   },
   actions: {},
   getters: {

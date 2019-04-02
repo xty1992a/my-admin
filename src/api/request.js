@@ -98,11 +98,7 @@ export default function request({method = 'post', data, url, headers = {}}, load
 			})
 		  }
 
-		  resolve({
-			success: res.data.success,
-			message: res.data.message || '请求成功!',
-			data: res.data,
-		  })
+		  resolve(res.data)
 		})
 		.catch(err => {
 		  loading && Loading.service().close()
