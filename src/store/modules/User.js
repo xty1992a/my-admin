@@ -14,16 +14,18 @@ export default {
 	  let res = await API.login(params)
 	  console.log(res)
 	  if (res.success) {
-		Cookie.set('user', res.data.data.token, {expires: 1})
-		commit('SET_USER_INFO', res.data.data)
+		Cookie.set('user', res.data.token, {expires: 1})
+		commit('SET_USER_INFO', res.data)
 	  }
 	  return res
 	},
-	async getUserInfo({commit}, params) {
+	async getUserInfo({commit, state}, params) {
+	  if (state.userInfo) return {success: true}
 	  let res = await API.getUser(params)
-	  console.log(res)
-
-	  return {success: false}
+	  if (res.success) {
+		commit('SET_USER_INFO', res.data)
+	  }
+	  return res
 	},
   },
   getters: {},

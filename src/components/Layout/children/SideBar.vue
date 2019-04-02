@@ -1,5 +1,5 @@
 <template>
-  <div class="side-bar" :style="style">
+  <div class="side-bar" :style="style" @wheel.stop @DOMMouseScroll.stop>
     <RouteSide/>
   </div>
 </template>

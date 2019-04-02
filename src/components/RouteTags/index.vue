@@ -1,8 +1,8 @@
 <template>
   <div class="route-tags">
     <div style="height: 40px;overflow: hidden;">
-      <RowScroller ref="scroll">
-        <ul class="tag-list">
+      <RowScroller ref="scroll" :speed="50">
+        <ul class="tag-list" ref="list">
           <router-link
                   tag="li"
                   v-for="tag in visitedRoutes"
@@ -38,6 +38,8 @@
 	},
 	created() {
 	},
+	mounted() {
+	},
 	methods: {
 	  closeTag(tag) {
 		this.$store.commit('Router/DEL_TAG', tag)
@@ -54,11 +56,14 @@
 	  },
 
 	  scrollToTag() {
-		console.log(this.$refs)
-		// let el = [...this.$refs.link].find(it => it.to === this.$route.path)
-		// console.log(el)
+		if (!this.$refs.link) return
+		let el = [...this.$refs.link].find(it => it.to === this.$route.path)
+		el && this.$refs.scroll.scrollToElement(el)
+	  },
 
-		// el && this.$refs.scroll.scrollToElement(el)
+	  cacheTags() {
+		this.$storage.setItem('vuex_cache_tagCache', this.tagCache)
+		this.$storage.setItem('vuex_cache_visitedRoutes', this.visitedRoutes)
 	  },
 	},
 	computed: {
@@ -72,6 +77,7 @@
 		handler(now) {
 		  this.$store.commit('Router/ADD_TAG', now)
 		  this.scrollToTag()
+		  this.sorter && this.sorter.freshThreshold()
 		}, immediate: true,
 	  },
 	  visitedRoutes(now) {
@@ -82,6 +88,8 @@
 		  const latestView = this.visitedRoutes.slice(-1)[0]
 		  this.$router.push(latestView.path)
 		}
+
+		this.cacheTags()
 	  },
 	},
   }
@@ -93,11 +101,18 @@
     position: relative;
     height: 40px;
     padding-left: 10px;
+    user-select: none;
 
     .tag-list {
       white-space: nowrap;
 
+      .sorter-holder {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
       .tag-item {
+        vertical-align: middle;
         cursor: pointer;
         display: inline-block;
         line-height: 38px;

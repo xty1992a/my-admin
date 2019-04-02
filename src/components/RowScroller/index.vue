@@ -33,18 +33,32 @@
 		// firefox使用detail:下3上-3,其他浏览器使用wheelDelta:下-120上120//下滚
 		let delta = -e.wheelDelta || e.detail
 		if (delta < 0) {
-		  console.log('<----向左')
 		  this.$el.scrollLeft -= this.speed
 		}
 		else {
 		  this.$el.scrollLeft += this.speed
-		  console.log('向右---->')
 		}
 	  },
 	  scrollToElement(el) {
-	    console.log(el.offsetLeft)
-        this.$el.scrollLeft = el.offsetLeft
-      }
+		el = el.$el || el
+		let left = el.offsetLeft - this.$el.clientWidth / 2
+		this.scrollTo(left + el.clientWidth / 2)
+	  },
+
+	  // 目标,步数
+	  scrollTo(left, count = 10) {
+		let current = this.$el.scrollLeft
+		const speed = (left - current) / count
+
+		const step = () => {
+		  let target = left - (speed * count--)
+		  if (count) {
+			this.$el.scrollLeft = target
+			requestAnimationFrame(step)
+		  }
+		}
+		step()
+	  },
 	},
 	computed: {},
   }
@@ -55,6 +69,7 @@
   .scroll-container {
     overflow-x: auto;
     overflow-y: hidden;
+    /*scroll-behavior: smooth;*/
 
     .row-scroller {
     }

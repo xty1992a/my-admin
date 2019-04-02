@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard">
-    <layout-block title="会员发展对比" icon="menu_activity_creation">
+    <layout-block title="事故率" icon="menu_activity_creation">
       <ChartsLinear :data="linearData" zoom/>
     </layout-block>
   </div>
@@ -28,12 +28,14 @@
 
 		  }
 		})
+		let len = list.length
 		return {
 		  xAxis: list.map(it => it.date),
 		  list: [
-			list.map((it, i) => i),
+			list.map((it, i) => i <= len / 2 ? i : '-'),
+			list.map((it, i) => i >= len / 2 ? len - i : '-'),
 		  ],
-		  labels: ['收益金额', '成本支出'],
+		  labels: ['改革前', '改革后'],
 		  colors: ['#9ed0ff', '#81da9c'],
 		}
 	  },
