@@ -1,30 +1,38 @@
 <template>
   <div class="route-tags">
-    <RowScroller>
-      <ul class="tag-list">
-        <router-link
-                v-for="tag in visitedRoutes"
-                class="tag-item hover-border"
-                :class="tag.fullPath.toLowerCase()===$route.fullPath.toLowerCase()?'active':''"
-                :to="tag.fullPath"
-                :key="tag.fullPath">
-          <span>{{tag.meta.title}}</span>
-          <span class="tag-close-btn" @click.prevent.stop="closeTag(tag)">
-            <svg-icon icon="delete"/>
-          </span>
-        </router-link>
-      </ul>
-    </RowScroller>
+    <div style="height: 40px;overflow: hidden;">
+      <RowScroller ref="scroll">
+        <ul class="tag-list">
+          <router-link
+                  tag="li"
+                  v-for="tag in visitedRoutes"
+                  ref="link"
+                  class="tag-item hover-border"
+                  :class="tag.fullPath.toLowerCase()===$route.fullPath.toLowerCase()?'active':''"
+                  :to="tag.fullPath"
+                  :title="getTitle(tag)"
+                  :key="tag.fullPath"
+                  @click.right.prevent.native="openMenu(tag,$event)">
+            <span>{{tag.meta.title}}</span>
+            <span class="tag-close-btn" @click.prevent.stop="closeTag(tag)">
+              <svg-icon icon="delete"/>
+            </span>
+          </router-link>
+        </ul>
+      </RowScroller>
+    </div>
+    <CloseMenu ref="close"/>
   </div>
 </template>
 
 <script>
+  import CloseMenu from './CloseMenu'
   import RowScroller from '@/components/RowScroller'
   import {mapState, mapGetters} from 'vuex'
 
   export default {
 	name: 'RouteTags',
-	components: {RowScroller},
+	components: {RowScroller, CloseMenu},
 	data() {
 	  return {}
 	},
@@ -33,27 +41,47 @@
 	methods: {
 	  closeTag(tag) {
 		this.$store.commit('Router/DEL_TAG', tag)
-		const latestView = this.visitedRoutes.slice(-1)[0]
-		console.log(this.visitedRoutes.map(it => it.meta.title))
-		if (latestView) {
-		  this.$router.push(latestView.path)
-		}
-		else {
-		  this.$router.push('/')
-		}
+	  },
+	  getTitle(route) {
+		let key = route.fullPath.toLowerCase()
+		let cache = this.tagCache.find(it => it.key === key)
+		return cache && cache.data && cache.data.title
+	  },
+	  openMenu(tag, e) {
+		let menu = this.$refs.close
+		let offset = this.$el.getBoundingClientRect().left
+		menu && menu.openMenu(tag, e.clientX - offset)
+	  },
+
+	  scrollToTag() {
+		console.log(this.$refs)
+		// let el = [...this.$refs.link].find(it => it.to === this.$route.path)
+		// console.log(el)
+
+		// el && this.$refs.scroll.scrollToElement(el)
 	  },
 	},
 	computed: {
 	  ...mapState('Router', [
 		'visitedRoutes',
+		'tagCache',
 	  ]),
 	},
 	watch: {
 	  $route: {
 		handler(now) {
-		  console.log(now)
 		  this.$store.commit('Router/ADD_TAG', now)
+		  this.scrollToTag()
 		}, immediate: true,
+	  },
+	  visitedRoutes(now) {
+		if (now.length === 0) {
+		  this.$store.commit('Router/ADD_TAG', this.$route)
+		}
+		else {
+		  const latestView = this.visitedRoutes.slice(-1)[0]
+		  this.$router.push(latestView.path)
+		}
 	  },
 	},
   }
@@ -62,6 +90,7 @@
 <style lang="less" rel="stylesheet/less">
 
   .route-tags {
+    position: relative;
     height: 40px;
     padding-left: 10px;
 
@@ -69,6 +98,7 @@
       white-space: nowrap;
 
       .tag-item {
+        cursor: pointer;
         display: inline-block;
         line-height: 38px;
         padding: 0 15px;

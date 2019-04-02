@@ -81,6 +81,7 @@
 <style lang="less" rel="stylesheet/less" scoped>
 
   .nav-bar {
+    z-index: 10;
     position: fixed;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

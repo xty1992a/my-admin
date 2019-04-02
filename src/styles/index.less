@@ -1,6 +1,7 @@
 html, body {
   width: 100%;
   min-height: 100vh;
+  background-color: #f7f7f7;
   box-sizing: border-box;
   line-height: 1;
   font-size: 14px;
@@ -28,3 +29,21 @@ a {
   text-decoration: none;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #ccc;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, .5);
+  }
+}
+
+::-webkit-scrollbar-track:hover {
+  background-color: rgba(0, 0, 0, .05);
+}

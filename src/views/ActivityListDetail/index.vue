@@ -12,8 +12,18 @@
 	  return {}
 	},
 	created() {
+	  this.setTagTitle()
 	},
-	methods: {},
+	methods: {
+	  setTagTitle() {
+		this.$store.commit('Router/UPDATE_TAG_CACHE', {
+		  key: this.$route.fullPath,
+		  data: {
+			title: '活动--' + this.$route.params.activity_id,
+		  },
+		})
+	  },
+	},
 	computed: {},
   }
 </script>
