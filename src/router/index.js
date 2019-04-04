@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/components/Layout'
 import Login from '@/views/Login'
-import {isLogin} from '@/utils/auth'
 
 Vue.use(Router)
 
@@ -10,15 +9,19 @@ export const routes = [
   {
 	path: '/',
 	redirect: '/Home/index',
+	name: 'Root',
 	meta: {
 	  redirectName: 'HomeIndex',
+	  free: true,
+	  title: '根页面',
 	},
   },
   {
 	path: '/Login',
+	name: 'Login',
 	component: Login,
 	meta: {
-	  isSide: false, isTag: false, title: '登录', icon: '',
+	  isSide: false, isTag: false, title: '登录', icon: '', free: true,
 	},
   },
   {
@@ -28,10 +31,22 @@ export const routes = [
 	meta: {isSide: true, isTag: true, title: '首页', icon: 'menu_my'},
 	children: [
 	  {
-		path: 'index',
-		name: 'HomeIndex',
+		path: 'Index',
+		name: 'Index',
 		component: () => import('@/views/Home/index.vue'),
 		meta: {isSide: true, isTag: true, title: '我的', icon: 'menu_my'},
+	  },
+	  {
+		path: 'AuthEdit',
+		name: 'AuthEdit',
+		component: () => import('@/views/Home/AuthEdit'),
+		meta: {isSide: true, isTag: true, title: '权限编辑', icon: 'menu_my'},
+	  },
+	  {
+		path: 'UserEdit',
+		name: 'UserEdit',
+		component: () => import('@/views/Home/UserEdit'),
+		meta: {isSide: false, isTag: true, title: '用户编辑', icon: 'menu_my'},
 	  },
 	],
   },
@@ -83,23 +98,24 @@ export const routes = [
 	  },
 	],
   },
+  {
+	path: '/Error',
+	name: 'Error',
+	component: Layout,
+	meta: {isSide: false, isTag: true, title: '错误', icon: 'menu_management'},
+	children: [
+	  {
+		path: 'NoAuth',
+		name: 'NoAuth',
+		component: () => import('@/views/Error/NoAuth/index.vue'),
+		meta: {isSide: true, isTag: true, title: '没有权限', icon: 'menu_management', free: true},
+	  },
+	],
+  },
 ]
 
 const router = new Router({
   routes,
-})
-
-router.beforeEach((to, from, next) => {
-  if (to.path === '/Login') {
-	next()
-	return
-  }
-  if (!isLogin()) {
-	console.log('did not login ', to.path)
-	next('/Login')
-	return
-  }
-  next()
 })
 
 export default router

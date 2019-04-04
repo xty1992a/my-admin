@@ -4,12 +4,13 @@ import storage from '@/utils/setStorage'
 const tagCache = storage.getItem('vuex_cache_tagCache') || []
 const visitedRoutes = storage.getItem('vuex_cache_visitedRoutes') || []
 
-function filterSideRoutes(routes) {
+function filterSideRoutes(routes, roleInfo) {
+  const authList = roleInfo ? roleInfo.authList : []
   return routes.filter(it => {
 	if (it.children) {
-	  it.children = filterSideRoutes(it.children)
+	  it.children = filterSideRoutes(it.children, roleInfo)
 	}
-	return it.hasOwnProperty('meta') && it.meta.isSide
+	return it.hasOwnProperty('meta') && it.meta.isSide && authList.includes(it.name)
   })
 }
 
@@ -26,7 +27,6 @@ export default {
 	  route = {...route}
 	  delete route.matched
 	  route.fullPath = route.fullPath.toLowerCase()
-
 	  if (state.visitedRoutes.map(it => it.fullPath).includes(route.fullPath)) return
 	  state.tagCache.push({key: route.fullPath, data: null})
 	  state.visitedRoutes.push(route)
@@ -50,6 +50,6 @@ export default {
   },
   actions: {},
   getters: {
-	sideRoutes: state => filterSideRoutes(state.rawRoutes),
+	sideRoutes: (state, getters, root) => filterSideRoutes(JSON.parse(JSON.stringify(state.rawRoutes)), root.User.roleInfo),
   },
 }

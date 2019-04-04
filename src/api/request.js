@@ -35,7 +35,7 @@ const formatData = data => {
   let keys = []
   const form = new FormData()
   if (data instanceof FormData) {
-	keys = [...data.kesy()]
+	keys = [...data.keys()]
   }
   else if (typeof data === 'object') {
 	keys = Object.keys(data)
@@ -44,22 +44,8 @@ const formatData = data => {
 	throw new Error('expect an object or FormData')
   }
   keys.forEach(key => {
-	form.append(key, data.get ? data.get(key) : data[key])
+	form.append(key, data.get ? data.get(key) : JSON.stringify(data[key]))
   })
-  return form
-}
-
-// endregion
-
-// region 补上sid等
-function addUserAccount(url, form) {
-  if (/Login/.test(url)) return form
-  if (!form.get('sid')) {
-	form.append('sid', store.state.User.sid)
-  }
-  if (!form.get('userAccount')) {
-	form.append('userAccount', store.state.User.userAccount)
-  }
   return form
 }
 
@@ -80,7 +66,7 @@ export default function request({method = 'post', data, url, headers = {}}, load
 	axios({
 	  method,
 	  url,
-	  data: addUserAccount(url, form),
+	  data: form,
 	  params,
 	  headers: {
 		...headers,

@@ -75,18 +75,22 @@
 	watch: {
 	  $route: {
 		handler(now) {
+		  console.log('change', now.fullPath)
 		  this.$store.commit('Router/ADD_TAG', now)
 		  this.scrollToTag()
-		  this.sorter && this.sorter.freshThreshold()
 		}, immediate: true,
 	  },
-	  visitedRoutes(now) {
+	  visitedRoutes(now, old) {
+		console.log(now.length, old.length)
 		if (now.length === 0) {
 		  this.$store.commit('Router/ADD_TAG', this.$route)
 		}
 		else {
-		  const latestView = this.visitedRoutes.slice(-1)[0]
-		  this.$router.push(latestView.path)
+		  // 关闭标签,跳到最后一个标签
+		  if (now.length < old.length) {
+			const latestView = this.visitedRoutes.slice(-1)[0]
+			this.$router.push(latestView.fullPath)
+		  }
 		}
 
 		this.cacheTags()

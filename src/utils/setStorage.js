@@ -11,7 +11,6 @@ export default {
 	}
   },
   setItem(key, val) {
-	console.log(key)
 	ss.setItem(key, JSON.stringify(val))
   },
   clear() {

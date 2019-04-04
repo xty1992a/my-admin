@@ -2,9 +2,19 @@
   <div class="nav-bar" :style="style">
     <transition name="tool">
       <div class="tool-bar" v-show="navShow">
-        <el-button @click="toggleAside" style="padding: 10px;border:0">
-          <svg-icon :icon="asideShow?'left_step':'right_step'"/>
-        </el-button>
+
+        <div class="left-bar">
+          <el-button @click="toggleAside">
+            <svg-icon :icon="asideShow?'left_step':'right_step'"/>
+          </el-button>
+        </div>
+
+        <div class="right-bar">
+          <el-button @click="logout">
+            <svg-icon icon="exit"/>
+          </el-button>
+        </div>
+
       </div>
     </transition>
     <RouteTags/>
@@ -12,6 +22,7 @@
 </template>
 
 <script>
+  import Cookie from 'js-cookie'
   import RouteTags from '@/components/RouteTags'
   import scroll from '@/utils/wheelEvent'
   import {mapState, mapGetters} from 'vuex'
@@ -45,6 +56,11 @@
 
 	  wheel(down) {
 		this.$store.commit('App/TOGGLE_NAV', !down)
+	  },
+
+	  async logout() {
+		this.$store.dispatch('User/Logout')
+		this.$router.push('/Login')
 	  },
 	},
 	computed: {
@@ -95,6 +111,12 @@
       display: flex;
       align-items: center;
       padding: 0 10px;
+      justify-content: space-between;
+
+      .el-button {
+        padding: 10px;
+        border: 0;
+      }
     }
 
     .tool-enter, .tool-leave-to {

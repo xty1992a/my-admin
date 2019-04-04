@@ -10,11 +10,6 @@
         </el-input>
       </div>
       <div class="cell">
-        <el-input v-model="params.userAccount">
-          <span class="label" slot="prepend">工号</span>
-        </el-input>
-      </div>
-      <div class="cell">
         <el-input v-model="params.password" type="password">
           <span class="label" slot="prepend">密码</span>
         </el-input>
@@ -34,7 +29,6 @@
 		params: {
 		  username: '',
 		  password: '',
-		  userAccount: '',
 		},
 	  }
 	},
