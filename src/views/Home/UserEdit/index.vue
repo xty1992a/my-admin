@@ -114,6 +114,10 @@
 		  data: this.data,
 		})
 
+      if (res.success) {
+        this.exitPage()
+      }
+
 		console.log(res)
 	  },
 	  async addUser() {
@@ -128,9 +132,16 @@
 		  data: this.data,
 		})
 
+      if (res.success) {
+        this.exitPage()
+      }
+
 		console.log(res)
 
 	  },
+    exitPage() {
+      this.$store.commit('Router/DEL_TAG', this.$route)
+    }
 	},
 	computed: {
 	  editorList() {

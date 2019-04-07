@@ -1,5 +1,5 @@
 <template>
-  <img class="avatar" :src="src" alt="avatar" :style="{width: size + 'px', height: size+'px'}"/>
+  <img class="avatar" :src="src" :alt="alt" :style="{width: size + 'px', height: size+'px'}"/>
 </template>
 
 <script>
@@ -11,6 +11,10 @@
 		type: String,
 		default: '',
 	  },
+    alt: {
+	    type: String,
+      default: 'avatar'
+    },
 	  size: {
 		type: Number,
 		default: 40,

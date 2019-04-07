@@ -15,4 +15,5 @@ export const addEditor = (data) => request({data, url: '/api/User/AddEditor'})
 export const editEditor = (data) => request({data, url: '/api/User/RewriteEditor'})
 
 export const editUser = (data) => request({data, url: '/api/User/RewriteUser'})
+export const deleteUser = (token) => request({data:{params:{token}}, url: '/api/User/DeleteUser'})
 export const addUser = (data) => request({data, url: '/api/User/AddUser'})

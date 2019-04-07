@@ -54,7 +54,7 @@ module.exports = {
 	  let users = await tools.read(userPath)
 	  if (users) {
 		const newData = users.filter(it => it.token !== token)
-		resolve(await write(newData))
+		resolve(await tools.write(userPath, newData))
 	  }
 	  else {
 		resolve({

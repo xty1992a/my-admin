@@ -36,6 +36,10 @@ const POSTList = [
 	callback: user.deleteEditor,
   },
   {
+	test: /\/api\/User\/DeleteUser/,
+	callback: login.deleteUser,
+  },
+  {
 	test: /\/api\/User\/AddEditor/,
 	callback: user.addEditor,
   },
