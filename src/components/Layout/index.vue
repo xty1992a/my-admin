@@ -12,7 +12,7 @@
   import Main from './children/Content'
 
   export default {
-	name: 'layout',
+	name: 'Layout',
 	components: {NavBar, SideBar, Main},
 	data() {
 	  return {}

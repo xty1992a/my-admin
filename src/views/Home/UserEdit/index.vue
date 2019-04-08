@@ -85,7 +85,7 @@
 		})
 		this.uploader.on('upload', res => {
 		  if (res.success) {
-			this.data.avatar = '/static/imgs/' + res.data.filename
+			this.data.avatar = '/imgs/' + res.data.filename
 		  }
 		})
 	  },
@@ -114,9 +114,9 @@
 		  data: this.data,
 		})
 
-      if (res.success) {
-        this.exitPage()
-      }
+		if (res.success) {
+		  this.exitPage()
+		}
 
 		console.log(res)
 	  },
@@ -132,16 +132,16 @@
 		  data: this.data,
 		})
 
-      if (res.success) {
-        this.exitPage()
-      }
+		if (res.success) {
+		  this.exitPage()
+		}
 
 		console.log(res)
 
 	  },
-    exitPage() {
-      this.$store.commit('Router/DEL_TAG', this.$route)
-    }
+	  exitPage() {
+		this.$store.commit('Router/DEL_TAG', this.$route)
+	  },
 	},
 	computed: {
 	  editorList() {

@@ -82,7 +82,7 @@ module.exports = {
 			  res.json(data)
 			}
 			else {
-			  next()
+			  res.json(null)
 			}
 		  }, 200)
 		})
@@ -98,7 +98,7 @@ module.exports = {
 			  res.json(data)
 			}
 			else {
-			  next()
+			  res.json(null)
 			}
 		  }, 200)
 		})
