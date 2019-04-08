@@ -1,21 +1,39 @@
 # my-admin
 
-> A Vue.js project
+> 一个后台网站模板,由[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)(以下简称vue-admin)改进而来
 
-## Build Setup
+## 在线网站
+[在线网站](http://admin.redbuck.cn)
+用户名 admin,密码随意
+#### 与vue-admin的区别
+1. 路由不是动态生成,而是传统的拦截重定向
+    > vue-router的addRoutes有一些问题,导致路由跳转周期中新增的路由,不能被立即访问.<br>
+vue-admin采用replace的方式hack,个人对可靠性表示担忧.<br>
+另一个,有一些页面即便不能访问,也需要展示,并在进入时提示没有权限.vue-admin的方案导致这些页面根本不存在.<br>
+本项目改为生成所有路由,进入时检查是否有权限.
+
+2. 优化权限逻辑
+    > vue-admin的权限角色有些混乱.一个用户可能有多个角色,导致判断非常复杂.<br>
+    本项目优化为,一个用户有且只有一个角色.角色由管理员创建,每个角色可以勾选可访问的路由,创建用户时,必须选择一个角色.<br>
+    而在应用初始化时,根据用户信息中的角色,拉取角色信息,根据角色信息决定用户可以访问哪些页面.
+
+3. 为每个标签路由(route.meta.isTag为true的路由)添加缓存.
+    > 假设这样一个场景,列表页内的记录都对应同一个详情/编辑页面,该页面根据不同的路由参数展示不同的数据(即 path:'/detail/:id'场景).这样的页面在应用中很难区分.<br>
+    因此,本项目为每个标签路由在vuex存储一个以fullpath为key的存储对象,可以存储一些该标签所对应的数据,这个对象在F5刷新页面时,依然会存在.因此在不希望`keep-alive`组件,又希望缓存页面数据的情况下,可以将数据存到这个缓存对象中.
+
+4. 用一个express服务器替代mock.js
+    > mock.js工作在浏览器端,能力有限,不能完全模拟服务器.因此提供一个express服务器来真正模拟后端网站,比如支持上传图片功能.
+
+## 开始
 
 ``` bash
-# install dependencies
-npm install
+# 下载依赖
+yarn
 
-# serve with hot reload at localhost:8080
+# 开启开发服务器
 npm run dev
 
-# build for production with minification
-npm run build
+# 开启后端服务器
+cd ./server && npm start
 
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
