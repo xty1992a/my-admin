@@ -31,9 +31,7 @@ vue-admin采用replace的方式hack,个人对可靠性表示担忧.<br>
 yarn
 
 # 开启开发服务器
-npm run dev
+npm start
 
-# 开启后端服务器
-cd ./server && npm start
 
 ```

@@ -1,23 +1,24 @@
 <template>
   <div class="not-found">
     <div class="center">
-      <svg-icon icon="404"/>
+      <img :src="img.not_found" alt="">
       <p>啊哦，你找页面不见了～～～</p>
     </div>
   </div>
 </template>
 
 <script>
+  import img from '@/assets/imgs'
   export default {
-    name: 'NotFound',
-    components: {},
-    data() {
-      return {}
-    },
-    created() {
-    },
-    methods: {},
-    computed: {},
+	name: 'NotFound',
+	components: {},
+	data() {
+	  return {img}
+	},
+	created() {
+	},
+	methods: {},
+	computed: {},
   }
 </script>
 
@@ -36,7 +37,8 @@
       font-size: 100px;
     }
 
-    svg {
+    img {
+      width: 200px;
     }
 
     p {

@@ -1,29 +1,40 @@
 <template>
   <div class="no-auth">
-    <p>您没有访问权限</p>
+    <div class="center">
+      <img :src="img.no_auth" alt="">
+      <p>您没有访问权限</p>
+      <Avatar/>
+    </div>
   </div>
 </template>
 
 <script>
+  import img from '@/assets/imgs'
+
   export default {
-    name: 'NoAuth',
-    components: {},
-    data() {
-      return {}
-    },
-    created() {
-    },
-    methods: {},
-    computed: {},
+	name: 'NoAuth',
+	components: {},
+	data() {
+	  return {img}
+	},
+	created() {
+	},
+	methods: {},
+	computed: {},
   }
 </script>
 
 <style lang="less" rel="stylesheet/less">
 
   .no-auth {
-    height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
+    padding-top: 200px;
+
+    .center {
+      display: inline-block;
+    }
+    img {
+      width: 200px;
+    }
   }
 </style>
