@@ -77,14 +77,12 @@ module.exports = {
 	Promise.all(list)
 		.then(results => {
 		  const data = results.find(Boolean)
-		  setTimeout(() => {
-			if (data) {
-			  res.json(data)
-			}
-			else {
-			  res.json(null)
-			}
-		  }, 200)
+		  if (data) {
+			res.json(data)
+		  }
+		  else {
+			res.json(null)
+		  }
 		})
   },
   post(req, res, next) {
@@ -93,14 +91,12 @@ module.exports = {
 	Promise.all(list)
 		.then(results => {
 		  const data = results.find(Boolean)
-		  setTimeout(() => {
-			if (data) {
-			  res.json(data)
-			}
-			else {
-			  res.json(null)
-			}
-		  }, 200)
+		  if (data) {
+			res.json(data)
+		  }
+		  else {
+			res.json(null)
+		  }
 		})
   },
 }

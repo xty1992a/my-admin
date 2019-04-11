@@ -10,7 +10,7 @@
           </el-table-column>
           <el-table-column label="用户名" prop="name"/>
           <el-table-column label="签名" prop="introduction"/>
-          <el-table-column label="角色关键字" prop="roles"/>
+          <el-table-column label="角色关键字" prop="role"/>
           <el-table-column label="操作">
             <template slot-scope="scope">
               <router-link :to="`/Home/UserEdit?user=${scope.row.name}`">
@@ -32,21 +32,20 @@
 
     <layout-block title="编辑权限">
       <div class="table-container" v-loading="loading.edit">
-        <el-table :data="editorList">
+        <el-table :data="roleList">
           <el-table-column label="关键字" prop="key"/>
           <el-table-column label="名称" prop="name"/>
           <el-table-column label="描述" prop="description"/>
           <el-table-column label="操作">
             <template slot-scope="scope">
-              <el-button type="primary" @click="editAuth(scope.row)">编辑</el-button>
-              <el-button type="danger" @click="delEditor(scope.row.key)" :disabled="scope.row.key==='admin'">删除
-              </el-button>
+              <el-button type="primary" @click="editRole(scope.row)">编辑</el-button>
+              <el-button type="danger" @click="delRole(scope.row.key)" :disabled="scope.row.key==='admin'">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
 
         <div class="btn-wrap">
-          <el-button @click="addEditor" type="primary">添加</el-button>
+          <el-button @click="addRole" type="primary">添加</el-button>
         </div>
       </div>
     </layout-block>
@@ -55,145 +54,136 @@
 </template>
 
 <script>
-  import * as API from '@/api'
+  import * as API from '../../../api'
   import editAuth from '@/service/AuthEditor'
   import {mapState} from 'vuex'
   import Avatar from '@/components/Avatar'
   import LayoutBlock from '@/components/LayoutBlock'
 
   const filterRoutes = (routes) => routes.filter(it => {
-    if (it.children) {
-      it.children = filterRoutes(it.children)
-    }
-    return it.hasOwnProperty('meta')
+	if (it.children) {
+	  it.children = filterRoutes(it.children)
+	}
+	return it.hasOwnProperty('meta') && !it.meta.free
   })
 
-  const fmtRoutes = (routes, path = '') => routes.map(it => {
-    let route = {
-      enable: true,
-      label: it.meta.title,
-      key: it.name,
-    }
-    if (it.children) {
-      route.children = fmtRoutes(it.children, it.path.toLowerCase())
-    }
-    return route
+  const fmtRoutes = (routes) => routes.map(it => {
+	let route = {
+	  enable: true,
+	  label: it.meta.title,
+	  key: it.name,
+	}
+	if (it.children) {
+	  route.children = fmtRoutes(it.children)
+	}
+	return route
   })
 
   export default {
-    name: 'AuthEdit',
-    components: {LayoutBlock, Avatar},
-    data() {
-      return {
-        loading: {
-          edit: false,
-          user: false,
-        },
-      }
-    },
-    created() {
-      this.getEditorList()
-      this.getUserList()
-    },
-    methods: {
-      async getEditorList() {
-        this.loading.edit = true
-        await this.$store.dispatch('User/getEditorList')
-        this.loading.edit = false
-      },
+	name: 'AuthEdit',
+	components: {LayoutBlock, Avatar},
+	data() {
+	  return {
+		loading: {
+		  edit: false,
+		  user: false,
+		},
+	  }
+	},
+	created() {
+	  this.getEditorList()
+	  this.getUserList()
+	},
+	methods: {
+	  async getEditorList() {
+		this.loading.edit = true
+		await this.$store.dispatch('User/getRoleList')
+		this.loading.edit = false
+	  },
 
-      async getUserList() {
-        this.loading.user = true
-        await this.$store.dispatch('User/getUserList')
-        this.loading.user = false
-      },
+	  async getUserList() {
+		this.loading.user = true
+		await this.$store.dispatch('User/getUserList')
+		this.loading.user = false
+	  },
 
-      async editAuth(role) {
-        let res = await editAuth({
-          value: role,
-          type: 'edit',
-          routes: this.routes,
-        })
+	  async editRole(role) {
+		let res = await editAuth({
+		  value: role,
+		  type: 'edit',
+		  routes: this.routes,
+		})
 
-        if (res.success) {
-          let editor = this.editorList.find(it => it.key === role.key)
-          Object.keys(editor).forEach(k => {
-            editor[k] = res.data[k]
-          })
-          let result = await API.editEditor({
-            data: res.data,
-          })
+		if (res.success) {
+		  let result = await API.editRole({data: res.data})
+		  console.log(result)
+		  if (result.success) {
+			let role = this.roleList.find(it => it.key === res.data.key)
+			Object.keys(role).forEach(k => role[k] = res.data[k])
+		  }
+		}
+	  },
 
-          console.log(result)
-        }
-      },
+	  async addRole() {
+		let data = await editAuth({
+		  value: {
+			name: '',
+			key: Math.random().toString(36).substr(2, 15),
+			description: '',
+			authList: [],
+		  },
+		  type: 'add',
+		  routes: this.routes,
+		})
 
-      delUser(token) {
-        this.$confirm('该操作不可恢复，确定继续吗？')
-          .then(async () => {
-            let res = await API.deleteUser(token)
-            console.log('response ', res);
-            if (res.success) {
-              this.getUserList()
-            }
-          })
-          .catch(() => {
-          })
+		if (data.success) {
+		  let res = await API.addRole({
+			data: data.data,
+		  })
+		  if (res.success) {
+			this.getEditorList()
+		  }
+		}
 
-      },
+	  },
 
-      delEditor(key) {
-        this.$confirm('该操作不可恢复,确定继续吗?')
-          .then(async () => {
-            let res = await API.deleteEditor(key)
+	  delUser(token) {
+		this.$confirm('该操作不可恢复，确定继续吗？')
+			.then(async () => {
+			  let res = await API.deleteUser(token)
+			  if (res.success) {
+				this.getUserList()
+			  }
+			})
+			.catch(() => {
+			})
 
-            if (res.success) {
-              this.getEditorList()
-            }
-            console.log(res)
-          })
-          .catch(() => {
-          })
-      },
+	  },
 
-      async addEditor() {
-        let data = await editAuth({
-          value: {
-            name: '',
-            key: Math.random().toString(36).substr(2, 15),
-            description: '',
-            authList: [],
-          },
-          type: 'add',
-          routes: this.routes,
-        })
-
-        if (data.success) {
-          let res = await API.addEditor({
-            data: data.data,
-          })
-          if (res.success) {
-            this.getEditorList()
-          }
-        }
-
-      },
-    },
-    computed: {
-      /*	  ...mapState('Router', [
-                'rawRoutes',
-              ]),*/
-      rawRoutes() {
-        return this.$store.state.Router.rawRoutes
-      },
-      ...mapState('User', [
-        'editorList',
-        'userList',
-      ]),
-      routes() {
-        return fmtRoutes(filterRoutes(JSON.parse(JSON.stringify(this.rawRoutes))))
-      },
-    },
+	  delRole(key) {
+		this.$confirm('该操作不可恢复,确定继续吗?')
+			.then(async () => {
+			  let res = await API.deleteRole(key)
+			  if (res.success) {
+				this.getEditorList()
+			  }
+			})
+			.catch(() => {
+			})
+	  },
+	},
+	computed: {
+	  ...mapState('Router', [
+		'rawRoutes',
+	  ]),
+	  ...mapState('User', [
+		'roleList',
+		'userList',
+	  ]),
+	  routes() {
+		return fmtRoutes(filterRoutes(JSON.parse(JSON.stringify(this.rawRoutes))))
+	  },
+	},
   }
 </script>
 

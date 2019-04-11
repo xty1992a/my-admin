@@ -69,11 +69,14 @@
 		  return
 		}
 
+		let fullCheckedKeys = this.$refs.tree.getCheckedKeys()
+		let halfCheckedKeys = this.$refs.tree.getHalfCheckedKeys()
+
 		this.resolve({
 		  success: true,
 		  data: {
 			...this.value,
-			authList: this.$refs.tree.getCheckedKeys(),
+			authList: [...fullCheckedKeys, ...halfCheckedKeys],
 		  },
 		})
 		this.show = false
@@ -88,14 +91,16 @@
 	  closed() {
 		this.$destroy(true)
 	  },
-	  check(value) {
+	  check() {
 		let {key} = this.value
 		if (!key) return '角色是必填项!'
 		if (!/^[a-z0-9]+$/i.test(key)) return '角色必须是英文或数字!'
 	  },
 	  checkChange() {
-		let keys = this.$refs.tree.getCheckedKeys()
-		console.log(keys)
+		let fullCheckedKeys = this.$refs.tree.getCheckedKeys()
+		let halfCheckedKeys = this.$refs.tree.getHalfCheckedKeys()
+
+		console.log([...fullCheckedKeys, ...halfCheckedKeys])
 	  },
 	},
 	computed: {},

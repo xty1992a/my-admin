@@ -52,7 +52,7 @@
   import '@redbuck/image-uploader/lib/imageUploader.css'
   import Avatar from '@/components/Avatar'
   import LayoutBlock from '@/components/LayoutBlock'
-  import * as API from '@/api'
+  import * as API from '../../../api'
 
   export default {
 	name: 'UserEdit',
@@ -69,7 +69,7 @@
 	},
 	async created() {
 	  this.getPageData()
-	  await this.$store.dispatch('User/getEditorList')
+	  await this.$store.dispatch('User/getRoleList')
 	},
 	mounted() {
 	  this.createUploader()
@@ -144,11 +144,11 @@
 	  },
 	},
 	computed: {
-	  editorList() {
-		return this.$store.state.User.editorList
+	  roleList() {
+		return this.$store.state.User.roleList
 	  },
 	  roles() {
-		return this.editorList.map(it => ({value: it.key, label: it.key}))
+		return this.roleList.map(it => ({value: it.key, label: it.key}))
 	  },
 	  disabled() {
 		if (this.isAdd) return false

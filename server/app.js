@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-const mock = require('../mock');
+const mock = require('./mock');
 const multipartMiddleware = require('connect-multiparty')();
 const multer = require('multer');
 

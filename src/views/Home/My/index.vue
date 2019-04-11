@@ -1,17 +1,22 @@
 <template>
   <div class="home">
-
-    <p v-for="i in 30">this is home page -- {{i}}</p>
+    <UserBlock/>
+    <ul class="list">
+      <li class="item" v-for="i in 30">
+        <p>this is home page -- {{i}}</p>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
   import Avatar from '@/components/Avatar'
   import {mapState} from 'vuex'
+  import UserBlock from './children/UserBlock'
 
   export default {
 	name: 'Home',
-	components: {Avatar},
+	components: {Avatar, UserBlock},
 	data() {
 	  return {
 		enter: false,
@@ -31,14 +36,7 @@
   .home {
     padding: 10px;
 
-    .user-block {
-      height: 60px;
-
-      .avatar {
-      }
-    }
-
-    p {
+    .item {
       padding: 10px;
       font-size: 15px;
     }
