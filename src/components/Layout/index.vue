@@ -2,7 +2,7 @@
   <div class="layout">
     <NavBar/>
     <SideBar/>
-    <Main/>
+    <Main ref="main"/>
   </div>
 </template>
 
@@ -14,13 +14,16 @@
   export default {
 	name: 'Layout',
 	components: {NavBar, SideBar, Main},
-	data() {
-	  return {}
+	provide() {
+	  return {
+		reload: this.reload,
+	  }
 	},
-	created() {
+	methods: {
+	  reload(delay) {
+		this.$refs.main.reload(delay)
+	  },
 	},
-	methods: {},
-	computed: {},
   }
 </script>
 

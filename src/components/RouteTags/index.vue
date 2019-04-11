@@ -33,13 +33,7 @@
   export default {
 	name: 'RouteTags',
 	components: {RowScroller, CloseMenu},
-	data() {
-	  return {}
-	},
-	created() {
-	},
-	mounted() {
-	},
+	inject: ['reload'],
 	methods: {
 	  closeTag(tag) {
 		this.$store.commit('Router/DEL_TAG', tag)
@@ -74,8 +68,12 @@
 	},
 	watch: {
 	  $route: {
-		handler(now) {
+		handler(now, old) {
 		  console.log('change', now.fullPath)
+		  if (old && old.path === now.path) {
+			// 路由变化,但是path不变(如 /detail?user=1变为/detail?user=2),刷新页面
+			this.reload && this.reload(10)
+		  }
 		  this.$store.commit('Router/ADD_TAG', now)
 		  this.scrollToTag()
 		}, immediate: true,

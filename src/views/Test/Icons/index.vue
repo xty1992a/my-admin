@@ -5,7 +5,9 @@
         <el-tooltip placement="top">
           <div slot="content">{{generateIconCode(item)}}</div>
           <div class="icon-item">
-            <svg-icon class-name="disabled" :icon="item" @click="handleClipboard(generateIconCode(item),$event)"/>
+            <div @click="copyText(generateIconCode(item),$event)">
+              <svg-icon class-name="disabled" :icon="item"/>
+            </div>
             <span @click="copyText(item, $event)" style="font-size: 12px;">{{item}}</span>
           </div>
         </el-tooltip>
@@ -34,9 +36,6 @@
 	  generateIconCode(symbol) {
 		return `<svg-icon icon-class="${symbol}" />`
 	  },
-	  handleClipboard(text, event) {
-		clipboard(text, event)
-	  },
 	  copyText(text, event) {
 		clipboard(text, event)
 	  },
@@ -46,6 +45,8 @@
 
 <style rel="stylesheet/less" lang="less" scoped>
   .icons-container {
+    padding: 10px;
+
     .icons-wrapper {
       margin: 0 auto;
     }
@@ -60,41 +61,17 @@
       color: #24292e;
       cursor: pointer;
 
-      svg {
-        /*animation: jump .8s ease-in infinite;*/
-      }
     }
 
     span {
       display: block;
-      font-size: 24px;
+      font-size: 12px;
       margin-top: 10px;
     }
 
-    .disabled {
+    svg {
       pointer-events: none;
     }
   }
 
-  @keyframes jump {
-    0% {
-      transform: translateY(0) scale(1.15, .8)
-    }
-
-    20% {
-      transform: translateY(-35px) scaleY(1.1)
-    }
-
-    50% {
-      transform: translateY(-50px) scale(1)
-    }
-
-    80% {
-      transform: translateY(-35px) scale(1)
-    }
-
-    to {
-      transform: translateY(0) scale(1.15, .8)
-    }
-  }
 </style>

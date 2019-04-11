@@ -36,6 +36,7 @@
 <style lang="less" rel="stylesheet/less" scoped>
 
   .side-bar {
+    z-index: 10;
     transition: width .3s;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: #f7f7f7;

@@ -1,6 +1,8 @@
 <template>
   <div class="main" :style="style">
-    <router-view/>
+    <transition name="router" mode="out-in">
+      <router-view v-if="visibility"/>
+    </transition>
   </div>
 </template>
 
@@ -9,13 +11,19 @@
 
   export default {
 	name: 'Main',
-	components: {},
 	data() {
-	  return {}
+	  return {
+		visibility: true,
+	  }
 	},
-	created() {
+	methods: {
+	  reload(delay = 20) {
+		this.visibility = false
+		setTimeout(() => {
+		  this.visibility = true
+		}, delay)
+	  },
 	},
-	methods: {},
 	computed: {
 	  ...mapState('App', [
 		'navShow',
@@ -38,7 +46,19 @@
 <style lang="less" rel="stylesheet/less" scoped>
 
   .main {
+    position: relative;
     padding-top: 90px;
     transition: padding .3s;
+    min-height: 100vh;
+
+    .router-enter, .router-leave-to {
+      transform: translate3d(50px, 0, 0);
+      opacity: 0;
+    }
+
+    .router-enter-active, .router-leave-active {
+      overflow: hidden;
+      transition: transform .15s ease, opacity .15s ease;
+    }
   }
 </style>

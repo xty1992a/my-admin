@@ -3,7 +3,7 @@
     <layout-block title="用户编辑">
       <div class="table-container" v-loading="loading.user">
         <el-table :data="userList">
-          <el-table-column label="头像" prop="key">
+          <el-table-column label="头像" prop="key" width="100" fixed="left">
             <template slot-scope="scope">
               <Avatar :src="scope.row.avatar"/>
             </template>
@@ -11,7 +11,7 @@
           <el-table-column label="用户名" prop="name"/>
           <el-table-column label="签名" prop="introduction"/>
           <el-table-column label="角色关键字" prop="role"/>
-          <el-table-column label="操作">
+          <el-table-column label="操作" width="180">
             <template slot-scope="scope">
               <router-link :to="`/Home/UserEdit?user=${scope.row.name}`">
                 <el-button type="primary">编辑</el-button>
@@ -33,10 +33,10 @@
     <layout-block title="编辑权限">
       <div class="table-container" v-loading="loading.edit">
         <el-table :data="roleList">
+          <el-table-column label="名称" prop="name" fixed="left"/>
           <el-table-column label="关键字" prop="key"/>
-          <el-table-column label="名称" prop="name"/>
           <el-table-column label="描述" prop="description"/>
-          <el-table-column label="操作">
+          <el-table-column label="操作" width="180">
             <template slot-scope="scope">
               <el-button type="primary" @click="editRole(scope.row)">编辑</el-button>
               <el-button type="danger" @click="delRole(scope.row.key)" :disabled="scope.row.key==='admin'">删除</el-button>
@@ -220,7 +220,7 @@
 
     .btn-wrap {
       text-align: center;
-      padding-top: 30px;
+      padding-top: 20px;
 
       button {
         width: 120px;

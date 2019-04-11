@@ -1,13 +1,19 @@
 <template>
   <div class="activity-list-detail">
-    <p>this is activity {{$route.params.activity_id}}</p>
+    <layout-block title="标题">
+      <div class="content">
+        <p>this is activity <b style="font-size: 24px;">{{$route.params.activity_id}}</b></p>
+      </div>
+    </layout-block>
   </div>
 </template>
 
 <script>
+  import LayoutBlock from '@/components/LayoutBlock'
+
   export default {
 	name: 'ActivityListDetail',
-	components: {},
+	components: {LayoutBlock},
 	data() {
 	  return {}
 	},
@@ -17,7 +23,7 @@
 	methods: {
 	  setTagTitle() {
 		this.$store.commit('Router/UPDATE_TAG_CACHE', {
-		  key: this.$route.fullPath,
+		  key: this.$route.fullPath.toLowerCase(),
 		  data: {
 			title: '活动--' + this.$route.params.activity_id,
 		  },
@@ -30,6 +36,15 @@
 
 <style lang="less" rel="stylesheet/less">
 
-  .activity-detail {
+  .activity-list-detail {
+    padding: 10px;
+
+    .content {
+      padding: 20px;
+
+      p {
+        font-size: 18px;
+      }
+    }
   }
 </style>

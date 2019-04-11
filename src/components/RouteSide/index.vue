@@ -9,11 +9,11 @@
     <el-menu
             :collapse="collapse"
             router
+            ref="menu"
             style="border: 0"
+            @open="handleOpen" @close="handleClose"
             unique-opened
             :default-active="$route.fullPath.toLowerCase()"
-            @open="handleOpen"
-            @close="handleClose"
             :background-color="bgColor"
             text-color="#fff"
             :collapse-transition="false"
@@ -34,8 +34,6 @@
 	  return {
 		collapse: false,
 	  }
-	},
-	created() {
 	},
 	methods: {
 	  handleOpen(key, keyPath) {
@@ -62,6 +60,9 @@
 		  this.collapse = false
 		}
 		else {
+		  const menu = this.$refs.menu
+		  const index = menu.openedMenus[0]
+		  menu.close(index)
 		  setTimeout(() => {
 			this.collapse = true
 		  }, 200)

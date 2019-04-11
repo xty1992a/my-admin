@@ -62,7 +62,9 @@ export default {
 	  return res
 	},
 	// 获取角色列表
-	async getRoleList({commit, state}) {
+	async getRoleList({commit, state}, getNew = true) {
+	  // 调用者不需要最新数据
+	  if (!getNew && state.roleList.length) return {success: true, data: state.roleList}
 	  let res = await API.getRoleList()
 	  if (res.success) {
 		commit('SET_ROLE_LIST', res.data)

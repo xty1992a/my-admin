@@ -36,7 +36,6 @@
 
     </layout-block>
 
-
     <layout-block>
       <div style="text-align: center;padding: 20px;">
         <el-button type="primary" style="width: 120px;" @click="confirm" v-if="!isAdd">保存</el-button>
@@ -48,11 +47,14 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
   import ImageUploader from '@redbuck/image-uploader'
   import '@redbuck/image-uploader/lib/imageUploader.css'
   import Avatar from '@/components/Avatar'
   import LayoutBlock from '@/components/LayoutBlock'
   import * as API from '../../../api'
+
+  const copy = o => JSON.parse(JSON.stringify(o))
 
   export default {
 	name: 'UserEdit',
@@ -62,14 +64,14 @@
 		data: {
 		  'role': '',
 		  'introduction': '',
-		  'avatar': '/static/imgs/1554277306710_1554277306377.png',
+		  'avatar': '/imgs/1554272067618_1554272067599.png',
 		  'name': '',
 		},
 	  }
 	},
 	async created() {
 	  this.getPageData()
-	  await this.$store.dispatch('User/getRoleList')
+	  await this.$store.dispatch('User/getRoleList', false)
 	},
 	mounted() {
 	  this.createUploader()
@@ -90,16 +92,21 @@
 		})
 	  },
 	  async getPageData() {
-		if (this.isAdd) {
+		if (this.isAdd) return
+
+		if (this.cacheData) {
+		  this.data = copy(this.cacheData.data)
+		  this.dataSnap = copy(this.cacheData.dataSnap)
 		  return
 		}
-		let res = await API.login({
+
+		const res = await API.login({
 		  username: this.$route.query.user,
 		}, false)
 
 		if (res.success) {
+		  this.dataSnap = copy(res.data)
 		  this.data = res.data
-		  this.dataSnap = JSON.parse(JSON.stringify(res.data))
 		}
 	  },
 	  async confirm() {
@@ -144,6 +151,14 @@
 	  },
 	},
 	computed: {
+	  ...mapState('Router', [
+		'tagCache',
+	  ]),
+	  cacheData() {
+		if (!this.tagCache.length) return null
+		const key = this.$route.fullPath.toLowerCase()
+		return this.tagCache.find(it => it.key === key).data
+	  },
 	  roleList() {
 		return this.$store.state.User.roleList
 	  },
@@ -156,6 +171,19 @@
 	  },
 	  isAdd() {
 		return !this.$route.query.hasOwnProperty('user')
+	  },
+	},
+	watch: {
+	  data: {
+		handler(now) {
+		  this.$store.commit('Router/UPDATE_TAG_CACHE', {
+			key: this.$route.fullPath.toLowerCase(),
+			data: {
+			  dataSnap: this.dataSnap,
+			  data: copy(now),
+			},
+		  })
+		}, deep: true,
 	  },
 	},
   }

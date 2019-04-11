@@ -74,13 +74,13 @@ export const routes = [
 	  {
 		path: 'ActivityList',
 		name: 'ActivityList',
-		component: () => import('@/views/ActivityList/index.vue'),
+		component: () => import('@/views/Activity/ActivityList/index.vue'),
 		meta: {isSide: true, isTag: true, title: '活动列表', icon: 'menu_activity_creation'},
 	  },
 	  {
 		path: 'ActivityListDetail/:activity_id',
 		name: 'ActivityListDetail',
-		component: () => import('@/views/ActivityListDetail/index.vue'),
+		component: () => import('@/views/Activity/ActivityListDetail/index.vue'),
 		meta: {isSide: false, isTag: true, title: '活动详情', icon: 'menu_activity_creation'},
 	  },
 	],

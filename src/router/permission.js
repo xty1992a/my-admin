@@ -1,6 +1,8 @@
 import router, {routes} from './index'
 import {isLogin} from '../utils/auth'
 import store from '../store'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 // region 收集路由
 // 递归收集所有路由的name
@@ -21,6 +23,7 @@ const names = getName(routes)
 
 // region 利用全局守卫鉴权
 router.beforeEach(async (to, from, next) => {
+  NProgress.start()
   const log = (...args) => console.log(`%c path to ${to.path}`, 'background:#222;padding:0 10px 0 100px;color:#bada55', ...args)
   const login = isLogin()
 
@@ -75,3 +78,7 @@ router.beforeEach(async (to, from, next) => {
   next()
 });
 // endregion
+
+router.afterEach(() => {
+  NProgress.done() // finish progress bar
+})
