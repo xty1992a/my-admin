@@ -63,11 +63,6 @@
 	  ...mapState('User', [
 		'userInfo',
 	  ]),
-	  toolStyle() {
-		return {
-		  height: this.navShow ? '50px' : 0,
-		}
-	  },
 	  style() {
 		return {
 		  left: this.asideWidth + 'px',

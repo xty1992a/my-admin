@@ -11,7 +11,6 @@
             router
             ref="menu"
             style="border: 0"
-            @open="handleOpen" @close="handleClose"
             unique-opened
             :default-active="$route.fullPath.toLowerCase()"
             :background-color="bgColor"
@@ -34,14 +33,6 @@
 	  return {
 		collapse: false,
 	  }
-	},
-	methods: {
-	  handleOpen(key, keyPath) {
-		console.log(key, keyPath);
-	  },
-	  handleClose(key, keyPath) {
-		console.log(key, keyPath);
-	  },
 	},
 	computed: {
 	  asideShow() {

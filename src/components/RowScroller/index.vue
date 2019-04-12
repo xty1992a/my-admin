@@ -9,18 +9,10 @@
 <script>
   export default {
 	name: 'RowScroller',
-	components: {},
 	props: {
-	  data: {
-		type: Object,
-	  },
 	  speed: {
 		type: Number,
 		default: 30,
-	  },
-	  height: {
-		type: Number,
-		default: 40,
 	  },
 	},
 	data() {
@@ -60,7 +52,6 @@
 		step()
 	  },
 	},
-	computed: {},
   }
 </script>
 

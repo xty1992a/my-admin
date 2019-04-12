@@ -8,7 +8,7 @@
                   v-for="tag in visitedRoutes"
                   ref="link"
                   class="tag-item hover-border"
-                  :class="tag.fullPath.toLowerCase()===$route.fullPath.toLowerCase()?'active':''"
+                  :class="tag.fullPath===$route.fullPath.toLowerCase()?'active':''"
                   :to="tag.fullPath"
                   :title="getTitle(tag)"
                   :key="tag.fullPath"

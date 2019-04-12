@@ -6,21 +6,12 @@
 
 <script>
   import RouteSide from '@/components/RouteSide'
-  import {mapState, mapGetters} from 'vuex'
+  import {mapGetters} from 'vuex'
 
   export default {
 	name: 'SideBar',
 	components: {RouteSide},
-	data() {
-	  return {}
-	},
-	created() {
-	},
-	methods: {},
 	computed: {
-	  ...mapState('App', [
-		'asideShow',
-	  ]),
 	  ...mapGetters('App', [
 		'asideWidth',
 	  ]),
