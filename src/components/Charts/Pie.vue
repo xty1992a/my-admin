@@ -1,21 +1,22 @@
 <template>
   <div class="charts-pie">
-    <div class="pie" ref="pie"></div>
   </div>
 </template>
 
 <script>
   import echarts from 'echarts'
+  import EleResize from '@/utils/resizeListener'
+
   export default {
 	name: 'charts-pie',
 	props: {
 	  data: {
-		type: Object
+		type: Object,
 	  },
 	  title: {
 		type: String,
-		default: '饼图'
-	  }
+		default: '饼图',
+	  },
 	},
 	components: {},
 	data() {
@@ -25,76 +26,87 @@
 	},
 	mounted() {
 	  this.initPie()
+	  this.listenResize()
 	},
 	methods: {
 	  initPie() {
-		let pie = this.$refs.pie
+		let pie = this.$el
 		let data = this.data
 		if (pie) {
-		  this.chart.pie = echarts.init(pie)
+		  this.chart = echarts.init(pie)
 		  let seriesData = data.list.map(it => ({
 			value: it.value,
 			name: it.name,
 			itemStyle: {
 			  normal: {
-				color: it.color
-			  }
-			}
-		  }))
+				color: it.color,
+			  },
+			},
+		  })).sort((a, b) => a.value - b.value)
 		  let option = {
-			color: ['#4CA1FE', '#FEBE3A'],
 			tooltip: {
 			  trigger: 'item',
-			  formatter: "{a} {b}: {c} ({d}%)",
-			  textStyle: {
-				fontSize: 14
-			  }
+			  formatter: '{a} {b}: {c} ({d}%)',
 			},
 			grid: {
 			  top: 40,
 			  left: '9%',
 			  right: '9%',
-			  bottom: 40
+			  bottom: 40,
 			},
 			series: [
 			  {
+				roseType: 'radius',
 				name: this.title,
 				type: 'pie',
-				radius: ['55%', '80%'],
-				avoidLabelOverlap: false,
+				radius: '70%',
+				center: ['50%', '50%'],
 				label: {
 				  normal: {
 					formatter: ({percent}) => percent + '%',
-					color: '#999'
+					color: '#2c343c',
 				  },
 				},
 				labelLine: {
 				  show: true,
 				  normal: {
 					lineStyle: {
-					  color: 'rgba(0, 0, 0, 0.3)'
+					  color: '#2c343c',
 					},
 					smooth: 0.2,
 					length: 10,
-					length2: 20
-				  }
+					length2: 20,
+				  },
 				},
-				data: seriesData
-			  }
-			]
+				data: seriesData,
+			  },
+			],
 		  }
-		  this.chart.pie.setOption(option)
+		  this.chart.setOption(option)
 		}
 	  },
+	  listenResize() {
+		EleResize.on(this.$el, this.resize)
+	  },
+
+	  resize() {
+		clearTimeout(this.time)
+		this.time = setTimeout(() => {
+		  this.chart.resize && this.chart.resize()
+		}, 300)
+	  },
+	},
+	beforeDestroy() {
+	  EleResize.off(this.$el, this.resize)
 	},
 	computed: {},
 	watch: {
 	  data: {
 		handler(now, old) {
 		  this.initPie()
-		}, deep: true
-	  }
-	}
+		}, deep: true,
+	  },
+	},
   }
 </script>
 
@@ -102,8 +114,5 @@
 
   .charts-pie {
     height: 100%;
-    .pie {
-      height: 100%;
-    }
   }
 </style>

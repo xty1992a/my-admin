@@ -98,6 +98,7 @@
 </script>
 
 <style lang="less" rel="stylesheet/less">
+  @import "../../styles/variable";
 
   .route-tags {
     position: relative;
@@ -123,6 +124,7 @@
         min-width: 100px;
         padding-right: 20px;
         text-align: center;
+        .shadow(0 0 4px rgba(0, 0, 0, 0.05));
       }
 
       .tag-close-btn {

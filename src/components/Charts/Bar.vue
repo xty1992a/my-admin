@@ -12,7 +12,6 @@
 	  data: {
 		type: Object,
 		required: true,
-		validator: val => ['xAxis', 'list'].every(k => val.hasOwnProperty(k)),
 	  },
 	  ellipsisLength: {
 		type: Number,
@@ -21,7 +20,10 @@
 	},
 	methods: {
 	  getOption() {
-		let series = this.data.list.map(it => ({
+		let series = this.data.series ? [{
+		  data: this.data.series,
+		  type: 'bar',
+		}] : this.data.list.map(it => ({
 		  name: it.name,
 		  type: 'bar',
 		  data: it.data,
@@ -53,6 +55,6 @@
 <style lang="less" rel="stylesheet/less" scoped>
 
   .charts-bar {
-    height: 350px;
+    height: 100%;
   }
 </style>

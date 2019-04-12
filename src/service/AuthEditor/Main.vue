@@ -56,8 +56,6 @@
 		show: false,
 	  }
 	},
-	created() {
-	},
 	methods: {
 	  confirm() {
 		let message = this.check()

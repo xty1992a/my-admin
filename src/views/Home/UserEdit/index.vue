@@ -1,5 +1,5 @@
 <template>
-  <div class="user-edit">
+  <div class="user-edit page">
     <layout-block :title="isAdd?'添加用户':'编辑用户'">
 
       <el-row type="flex">
@@ -192,7 +192,6 @@
 <style lang="less" rel="stylesheet/less">
 
   .user-edit {
-    padding: 10px;
 
     .el-row {
       margin-bottom: 15px;

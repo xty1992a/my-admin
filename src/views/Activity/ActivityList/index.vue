@@ -1,33 +1,39 @@
 <template>
-  <div class="activity-list">
-    <el-table
-            :data="tableData"
-            style="width: 100%">
-      <el-table-column
-              prop="name"
-              label="活动名称"
-              width="180">
-        <template slot-scope="scope">
-          <router-link :to="`/Activity/ActivityListDetail/${scope.row.guid}`">
-            <p>{{scope.row.guid}}-{{scope.row.name}}</p>
-          </router-link>
-        </template>
-      </el-table-column>
-      <el-table-column
-              prop="date"
-              label="活动时间"
-              width="180"/>
-      <el-table-column
-              prop="address"
-              label="活动地址"/>
-    </el-table>
+  <div class="activity-list page">
+    <layout-block title="活动列表">
+      <div class="table-container">
+        <el-table
+                :data="tableData"
+                style="width: 100%">
+          <el-table-column
+                  prop="name"
+                  label="活动名称"
+                  width="180">
+            <template slot-scope="scope">
+              <router-link :to="`/Activity/ActivityListDetail/${scope.row.guid}`">
+                <p>{{scope.row.guid}}-{{scope.row.name}}</p>
+              </router-link>
+            </template>
+          </el-table-column>
+          <el-table-column
+                  prop="date"
+                  label="活动时间"
+                  width="180"/>
+          <el-table-column
+                  prop="address"
+                  label="活动地址"/>
+        </el-table>
+      </div>
+    </layout-block>
   </div>
 </template>
 
 <script>
+  import LayoutBlock from '@/components/LayoutBlock'
+
   export default {
 	name: 'ActivityList',
-	components: {},
+	components: {LayoutBlock},
 	data() {
 	  return {
 		tableData: [{
@@ -64,9 +70,9 @@
 </script>
 
 <style lang="less" rel="stylesheet/less">
+  @import "../../../styles/table";
 
   .activity-list {
-    padding: 10px;
 
     .activity-item {
     }

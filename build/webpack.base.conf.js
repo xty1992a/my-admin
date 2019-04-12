@@ -89,5 +89,7 @@ module.exports = {
   },
   externals: {
 	'echarts': 'echarts',
+	'vue': 'Vue',
+	'element-ui': 'ELEMENT',
   },
 }

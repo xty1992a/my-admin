@@ -33,12 +33,17 @@
 </script>
 
 <style lang="less" rel="stylesheet/less">
+  @import "../../../../styles/variable";
 
   .user-block {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px 30px;
     background-color: #fff;
+    .shadow;
     display: flex;
+
+    .avatar {
+      flex-shrink: 0;
+    }
 
     .text-panel {
       padding-left: 40px;
@@ -55,6 +60,18 @@
         font-size: 17px;
       }
 
+    }
+  }
+
+  @media screen {
+    @media (max-width: 768px) {
+      .user-block {
+        padding: 20px 10px;
+
+        .text-panel {
+          padding-left: 20px;
+        }
+      }
     }
   }
 </style>

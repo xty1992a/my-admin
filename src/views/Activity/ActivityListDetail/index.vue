@@ -1,5 +1,5 @@
 <template>
-  <div class="activity-list-detail">
+  <div class="activity-list-detail page">
     <layout-block title="标题">
       <div class="content">
         <p>this is activity <b style="font-size: 24px;">{{$route.params.activity_id}}</b></p>
@@ -37,7 +37,6 @@
 <style lang="less" rel="stylesheet/less">
 
   .activity-list-detail {
-    padding: 10px;
 
     .content {
       padding: 20px;

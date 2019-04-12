@@ -1,19 +1,20 @@
 <template>
   <div class="nav-bar" :style="style">
-    <transition name="tool">
-      <div class="tool-bar" v-show="navShow">
-        <div class="left-bar">
-          <ToggleBtn/>
-          <FreshBtn/>
-        </div>
-        <div class="right-bar">
-          <Avatar v-bind="avatarProps" v-if="avatarProps"/>
-          <ExitBtn/>
-          <Fullscreen/>
-        </div>
+    <div class="tool-bar" :style="toolStyle">
+      <div class="left-bar">
+        <ToggleBtn/>
+        <FreshBtn/>
       </div>
+      <div class="right-bar">
+        <Avatar v-bind="avatarProps" v-if="avatarProps"/>
+        <ThemeBtn/>
+        <ExitBtn/>
+        <Fullscreen/>
+      </div>
+    </div>
+    <transition name="tool">
+      <RouteTags v-show="navShow"/>
     </transition>
-    <RouteTags/>
   </div>
 </template>
 
@@ -22,6 +23,7 @@
   import Fullscreen from '@/components/Nav/Fullscreen'
   import FreshBtn from '@/components/Nav/FreshBtn'
   import ToggleBtn from '@/components/Nav/ToggleBtn'
+  import ThemeBtn from '@/components/Nav/ThemeBtn'
   import ExitBtn from '@/components/Nav/ExitBtn'
   import RouteTags from '@/components/RouteTags'
   import scroll from '@/utils/wheelEvent'
@@ -29,7 +31,7 @@
 
   export default {
 	name: 'NavBar',
-	components: {RouteTags, ToggleBtn, Avatar, Fullscreen, ExitBtn, FreshBtn},
+	components: {RouteTags, ToggleBtn, ThemeBtn, Avatar, Fullscreen, ExitBtn, FreshBtn},
 	created() {
 	  scroll.off('wheel', this.wheel)
 	  scroll.on('wheel', this.wheel)
@@ -58,6 +60,7 @@
 	  ]),
 	  ...mapGetters('App', [
 		'asideWidth',
+		'theme',
 		'navHeight',
 	  ]),
 	  ...mapState('User', [
@@ -67,6 +70,12 @@
 		return {
 		  left: this.asideWidth + 'px',
 		  height: this.navHeight + 'px',
+		}
+	  },
+	  toolStyle() {
+		return {
+		  backgroundColor: this.theme.nav.bgColor,
+		  color: this.theme.nav.textColor,
 		}
 	  },
 	  avatarProps() {
@@ -87,12 +96,12 @@
 </script>
 
 <style lang="less" rel="stylesheet/less" scoped>
+  @import "../../../styles/variable";
 
   .nav-bar {
     z-index: 10;
     position: fixed;
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     right: 0;
     top: 0;
     transition: left .3s, height .3s;
@@ -102,7 +111,9 @@
     }
 
     .tool-bar {
+      position: relative;
       height: 50px;
+      z-index: 1;
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -110,8 +121,11 @@
       justify-content: space-between;
 
       .el-button {
+        color: inherit;
         padding: 10px;
+        font-size: 18px;
         border: 0;
+        background-color: transparent;
       }
 
       .right-bar {
@@ -120,8 +134,8 @@
       }
     }
 
+
     .tool-enter, .tool-leave-to {
-      height: 0;
       transform: translateY(-100%);
     }
 

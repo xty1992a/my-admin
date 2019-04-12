@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+const compression = require('compression');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -29,7 +30,7 @@ function before() {
 }
 
 var app = express();
-
+app.use(compression())
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

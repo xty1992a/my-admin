@@ -1,5 +1,5 @@
 <template>
-  <div class="auth-edit">
+  <div class="auth-edit page">
     <layout-block title="用户编辑">
       <div class="table-container" v-loading="loading.user">
         <el-table :data="userList">
@@ -188,29 +188,9 @@
 </script>
 
 <style lang="less" rel="stylesheet/less">
+  @import "../../../styles/table";
 
   .auth-edit {
-    padding: 10px;
-
-    .table-container {
-      padding: 0 20px 20px;
-
-      .el-table {
-        border: 1px solid #EBEEF5;
-        border-bottom-width: 0;
-
-        .el-button {
-          padding: 7px 20px;
-        }
-      }
-
-      thead {
-        tr, td, th {
-          background-color: #f0f0f0;
-        }
-      }
-    }
-
 
     .avatar {
       width: 40px;

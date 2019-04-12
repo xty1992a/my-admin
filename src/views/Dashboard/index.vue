@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard">
+  <div class="dashboard page">
     <layout-block title="事故率" icon="menu_activity_creation">
       <ChartsLinear :data="linearData" zoom/>
     </layout-block>
@@ -46,6 +46,5 @@
 <style lang="less" rel="stylesheet/less">
 
   .dashboard {
-    padding: 10px;
   }
 </style>

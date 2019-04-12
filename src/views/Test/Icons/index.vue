@@ -1,5 +1,5 @@
 <template>
-  <div class="icons-container">
+  <div class="icons-container page">
     <div class="icons-wrapper layout-block">
       <div v-for="item of iconsMap" :key="item">
         <el-tooltip placement="top">
@@ -45,7 +45,6 @@
 
 <style rel="stylesheet/less" lang="less" scoped>
   .icons-container {
-    padding: 10px;
 
     .icons-wrapper {
       margin: 0 auto;

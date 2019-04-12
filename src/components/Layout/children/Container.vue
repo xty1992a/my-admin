@@ -1,5 +1,5 @@
 <template>
-  <div class="main" :style="style">
+  <div class="container" :style="style">
     <transition name="router" mode="out-in">
       <router-view v-if="visibility"/>
     </transition>
@@ -10,7 +10,7 @@
   import {mapGetters, mapState} from 'vuex'
 
   export default {
-	name: 'Main',
+	name: 'Container',
 	data() {
 	  return {
 		visibility: true,
@@ -45,7 +45,7 @@
 
 <style lang="less" rel="stylesheet/less" scoped>
 
-  .main {
+  .container {
     position: relative;
     padding-top: 90px;
     transition: padding .3s;

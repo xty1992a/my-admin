@@ -78,6 +78,7 @@
 </script>
 
 <style lang="less" rel="stylesheet/less">
+  @import "../../styles/variable";
 
   .close-menu {
     margin: 0;
@@ -90,7 +91,7 @@
     font-size: 12px;
     font-weight: 400;
     color: #333;
-    box-shadow: 2px 0 8px 0 rgba(0, 0, 0, .1);
+    .shadow;
 
     li {
       margin: 0;
