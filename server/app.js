@@ -1,11 +1,11 @@
-var createError = require('http-errors');
-var express = require('express');
+const express = require('express');
+const createError = require('http-errors');
 const compression = require('compression');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const api = require('./routes/api');
 
-const mock = require('./mock');
 const multipartMiddleware = require('connect-multiparty')();
 const multer = require('multer');
 
@@ -20,16 +20,7 @@ const upload = multer({
   }),
 });
 
-function before() {
-  const router = express.Router();
-
-  router.get('*', mock.get)
-  router.post('*', multipartMiddleware, mock.post)
-
-  return router
-}
-
-var app = express();
+const app = express();
 app.use(compression())
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -59,8 +50,8 @@ app.post('/api/upload', upload.single('file'), function (req, res, next) {
   }
 });
 
-// app.use('/', indexRouter);
-app.use('/', before())
+app.use(multipartMiddleware)
+app.use('/api', api)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

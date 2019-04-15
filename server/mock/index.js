@@ -7,10 +7,10 @@ const user = require('./user');
 
 // get请求
 const GETList = [
-  {
+/*  {
 	test: /\/api\/User\/UserInfo/,
 	callback: login.getUserInfo,
-  },
+  },*/
   {
 	test: /\/api\/User\/UserList/,
 	callback: login.getUserList,
