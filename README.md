@@ -1,6 +1,6 @@
 # my-admin
 
-> 一个后台网站模板,由[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)(以下简称vue-admin)改进而来
+> 一个后台网站模板,参考[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)(以下简称vue-admin)设计
 
 ## 在线网站
 [在线网站](http://admin.redbuck.cn)
