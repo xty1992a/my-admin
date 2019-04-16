@@ -83,6 +83,12 @@ export const routes = [
 		component: () => import('@/views/Activity/ActivityListDetail/index.vue'),
 		meta: {isSide: false, isTag: true, title: '活动详情', icon: 'menu_activity_creation'},
 	  },
+	  {
+		path: 'MicroPage',
+		name: 'MicroPage',
+		component: () => import('@/views/Activity/MicroPage/index.vue'),
+		meta: {isSide: true, isTag: true, title: '微页面', icon: 'menu_activity_creation'},
+	  },
 	],
   },
   {

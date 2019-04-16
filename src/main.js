@@ -16,6 +16,20 @@ Vue.use(Element, {size: 'medium'})
 Vue.config.productionTip = false
 Vue.prototype.$storage = storage
 
+Vue.mixin({
+  methods: {
+	saveTagData(data) {
+	  if (this.$parent.$options._componentTag !== 'Container') return
+	  if (!data) return
+	  console.log(data, Array.isArray(data))
+	  this.$store.commit('Router/UPDATE_TAG_CACHE', {
+		key: this.$route.fullPath.toLowerCase(),
+		data,
+	  })
+	},
+  },
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
