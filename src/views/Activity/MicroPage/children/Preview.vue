@@ -1,6 +1,6 @@
 <template>
   <div class="preview">
-    <iframe src="http://localhost:8081" frameborder="0" height="640" width="100%" ref="frame"></iframe>
+    <iframe src="http://localhost:3001/mobile/#/MicroPage" frameborder="0" height="640" width="100%" ref="frame"></iframe>
   </div>
 </template>
 
