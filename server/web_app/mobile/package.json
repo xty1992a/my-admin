@@ -1,0 +1,24 @@
+{
+  "name": "mobile",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "core-js": "^2.6.5",
+    "vant": "^1.6.14",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.3",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.5",
+    "@vue/cli-service": "^3.0.5",
+    "less": "^3.0.4",
+    "less-loader": "^4.1.0",
+    "postcss-px2rem": "^0.3.0",
+    "vue-template-compiler": "^2.5.21"
+  }
+}
