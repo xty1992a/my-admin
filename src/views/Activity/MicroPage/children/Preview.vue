@@ -10,7 +10,6 @@
 	components: {},
 	props: {
 	  data: Array,
-	  cache: Function,
 	},
 	data() {
 	  return {}
@@ -26,10 +25,7 @@
 	  data: {
 		handler(now) {
 		  if (!this.frame) return
-		  console.log('emit ', now, this.frame)
 		  this.frame.postMessage({type: 'data-change', data: now}, '*')
-		  this.cache && this.cache([...now])
-		  // this.messager.emit('data-change', {data: now, type: 'data-change'})
 		}, deep: true,
 	  },
 	},

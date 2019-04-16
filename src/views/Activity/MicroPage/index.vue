@@ -2,7 +2,7 @@
   <div class="micro-page page">
     <Tools @add="addComponent" @edit="editComponent" :current="currentComponent"/>
     <Layer @pick="pickComponent" :currentKey="currentKey" v-model="componentList"/>
-    <Preview :data="componentList" :cache="saveTagData"/>
+    <Preview :data="componentList"/>
   </div>
 </template>
 
@@ -23,9 +23,9 @@
 	  }
 	},
 	created() {
-	  console.log(this.$parent.$options._componentTag)
 	  if (this.cacheData) {
-		this.componentList = copy(this.cacheData)
+		this.componentList = copy(this.cacheData.componentList)
+		this.currentKey = this.cacheData.currentKey
 	  }
 	},
 	methods: {
@@ -71,19 +71,27 @@
 		return this.componentList.find(it => it.key === this.currentKey)
 	  },
 	},
+	watch: {
+	  componentList() {
+		this.saveTagData({
+		  componentList: [...this.componentList],
+		  currentKey: this.currentKey,
+		})
+	  },
+	},
   }
 </script>
 
 <style lang="less" rel="stylesheet/less">
 
   .micro-page {
-    background-color: #fff;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
 
     > div {
       border: 1px solid #e5e5e5;
+      background-color: #fff;
     }
 
     .tools {

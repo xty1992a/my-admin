@@ -105,6 +105,7 @@
     right: 0;
     top: 0;
     transition: left .3s, height .3s;
+    .shadow;
 
     .el-button {
       margin: 0;
