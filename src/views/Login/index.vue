@@ -22,76 +22,74 @@
 </template>
 
 <script>
-  export default {
-	name: 'login',
-	data() {
-	  return {
-		params: {
-		  username: '',
-		  password: '',
-		},
-	  }
-	},
-	created() {
-	},
-	methods: {
-	  enterPress() {
-		this.login()
-	  },
-	  async login() {
-		console.log('login')
-		if (Object.keys(this.params).some(key => !this.params[key])) {
-		  this.$message({
-			type: 'error',
-			message: '请填写完整!',
-		  })
-		  return
-		}
-		let res = await this.$store.dispatch('User/LoginByUsername', this.params)
-		if (res.success) {
-		  this.$router.push('/')
-		}
-	  },
-	},
-	computed: {},
-  }
+export default {
+  name: "login",
+  data() {
+    return {
+      params: {
+        username: "",
+        password: ""
+      }
+    };
+  },
+  created() {},
+  methods: {
+    enterPress() {
+      this.login();
+    },
+    async login() {
+      console.log("login");
+      if (Object.keys(this.params).some(key => !this.params[key])) {
+        this.$message({
+          type: "error",
+          message: "请填写完整!"
+        });
+        return;
+      }
+      let res = await this.$store.dispatch("User/LoginByUsername", this.params);
+      if (res.success) {
+        this.$router.push("/");
+      }
+    }
+  },
+  computed: {}
+};
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-image: url("http://pq3cs0ksy.bkt.clouddn.com/20170626151136_11631.jpg");
+  background-color: rgba(0, 0, 0, 0.3);
+  background-repeat: no-repeat;
+  background-size: cover;
 
-  .login {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.3);
-    background-repeat: no-repeat;
-    background-size: cover;
+  .content {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
 
-    .content {
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 5px;
+    h3 {
+      line-height: 30px;
+      font-size: 18px;
+    }
 
-      h3 {
-        line-height: 30px;
-        font-size: 18px;
+    .cell {
+      margin-bottom: 15px;
+      width: 320px;
+
+      .label {
+        display: inline-block;
+        width: 40px;
       }
+    }
 
-      .cell {
-        margin-bottom: 15px;
-        width: 320px;
-
-        .label {
-          display: inline-block;
-          width: 40px;
-        }
-      }
-
-      .el-button {
-        width: 100%;
-      }
-
+    .el-button {
+      width: 100%;
     }
   }
+}
 </style>

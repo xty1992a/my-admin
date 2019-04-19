@@ -3,20 +3,20 @@
     "role": "admin",
     "token": "admin",
     "introduction": "我是超级管理员阿斯蒂芬",
-    "avatar": "/imgs/1554450788133_1554450788128.png",
+    "avatar": "http://pq3cs0ksy.bkt.clouddn.com/1555669672159.png",
     "name": "admin"
   },
   {
     "role": "editor",
     "introduction": "我是一个小编辑....",
-    "avatar": "/imgs/1554451288687_1554451288683.png",
+    "avatar": "http://pq3cs0ksy.bkt.clouddn.com/1555669690563.png",
     "name": "editor",
     "token": "edit"
   },
   {
     "role": "admin",
     "introduction": "输入中...",
-    "avatar": "/imgs/1554771854053_1554771853703.png",
+    "avatar": "http://pq3cs0ksy.bkt.clouddn.com/1555669716867.png",
     "name": "redbuck",
     "token": "redbuck"
   }
