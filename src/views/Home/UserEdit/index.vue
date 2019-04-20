@@ -56,15 +56,15 @@
           style="width: 120px;"
           @click="confirm"
           v-if="!isAdd"
-          >保存</el-button
-        >
+          >保存
+        </el-button>
         <el-button
           type="primary"
           style="width: 120px;"
           @click="addUser"
           v-if="isAdd"
-          >添加</el-button
-        >
+          >添加
+        </el-button>
       </div>
     </layout-block>
   </div>
@@ -78,7 +78,7 @@ import Avatar from "@/components/Avatar";
 import LayoutBlock from "@/components/LayoutBlock";
 import * as API from "../../../api";
 
-import uploadGen from "@/utils/uploadAvatar";
+import uploadGen from "@/utils/uploadGen";
 
 const copy = o => JSON.parse(JSON.stringify(o));
 
@@ -90,7 +90,7 @@ export default {
       data: {
         role: "",
         introduction: "",
-        avatar: "/imgs/1554272067618_1554272067599.png",
+        avatar: "http://pq3cs0ksy.bkt.clouddn.com/1555669672159.png",
         name: ""
       }
     };
@@ -107,8 +107,10 @@ export default {
       this.uploader = new ImageUploader({
         width: 300,
         height: 300,
+        // 默认输出base64,表单提交需要转为blob
         blob: true,
         el: this.$refs.avatarBtn.$el,
+        // 配置upload方法,将图片上传至七牛
         upload: await uploadGen(),
         fileName: "file"
       });
