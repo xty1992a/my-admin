@@ -28,14 +28,16 @@ export default {
   methods: {},
   computed: {
     previewPath() {
+      return "/mobile/#/MicroPage";
       return process.env.NODE_ENV === "development"
-        ? "http://localhost:3001/mobile/#/MicroPage"
+        ? "http://192.168.2.98:3001/mobile/#/MicroPage"
         : "/mobile/#/MicroPage";
     }
   },
   watch: {
     data: {
       handler(now) {
+        console.log(this.frame);
         if (!this.frame) return;
         this.frame.postMessage({ type: "data-change", data: now }, "*");
       },

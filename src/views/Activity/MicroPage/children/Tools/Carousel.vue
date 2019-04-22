@@ -23,7 +23,7 @@ import DelAble from "@/components/DelAble";
 import pickCarousel from "@/service/Micro/CarouselEditor";
 
 const list = [...Array(6)].map((n, i) => ({
-  path: `/images/goods__${i + 1}.png`,
+  path: `http://pq3cs0ksy.bkt.clouddn.com/images/goods__${i + 1}.png`,
   url: ""
 }));
 

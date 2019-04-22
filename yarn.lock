@@ -9,9 +9,9 @@
     cropperjs "^1.4.3"
     preact "^8.4.2"
 
-"@redbuck/sorter@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@redbuck/sorter/-/sorter-0.0.3.tgz#d532295cf3e81b4bf37624c5b8f024e8a06c1425"
+"@redbuck/sorter@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@redbuck/sorter/-/sorter-0.0.4.tgz#f43fddebd5a732948aaf432a361bb9f767b8ae1d"
 
 abbrev@1:
   version "1.1.1"
