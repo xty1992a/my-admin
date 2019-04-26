@@ -48,7 +48,8 @@ export default {
       }
       let res = await this.$store.dispatch("User/LoginByUsername", this.params);
       if (res.success) {
-        this.$router.push("/");
+        let redirect_url = this.$route.query.redirect_url || "/";
+        this.$router.push(redirect_url);
       }
     }
   },

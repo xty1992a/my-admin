@@ -1,1 +1,34 @@
-[{"name":"admin","key":"admin","description":"超级管理员","authList":["Home","Index","AuthEdit","UserEdit","Dashboard","DashboardActivity","Activity","ActivityList","ActivityListDetail","MicroPage","Test","Icons","Error"]},{"name":"编辑者","key":"editor","description":"编辑","authList":["Home","Index","AuthEdit","Test","Icons"]},{"name":"asdf","key":"ej5smh8xc2","description":"asfd","authList":["Home","Index","AuthEdit","UserEdit"]}]
+[
+  {
+    "name": "admin",
+    "key": "admin",
+    "description": "超级管理员",
+    "authList": [
+      "Home",
+      "Index",
+      "AuthEdit",
+      "UserEdit",
+      "Dashboard",
+      "DashboardActivity",
+      "Activity",
+      "ActivityList",
+      "ActivityListDetail",
+      "MicroPage",
+      "Test",
+      "Icons",
+      "Error"
+    ]
+  },
+  {
+    "name": "编辑者",
+    "key": "editor",
+    "description": "编辑",
+    "authList": ["Home", "Index", "AuthEdit", "Test", "Icons"]
+  },
+  {
+    "name": "asdf",
+    "key": "ej5smh8xc2",
+    "description": "asfd",
+    "authList": ["Home", "Index", "AuthEdit", "UserEdit"]
+  }
+]

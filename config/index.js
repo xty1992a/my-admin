@@ -16,7 +16,7 @@ module.exports = {
       "/imgs": {
         target: "http://localhost:3001"
       },
-      "/images": {
+      "/mobile": {
         target: "http://localhost:3001"
       }
     },
@@ -58,7 +58,7 @@ module.exports = {
 
     productionSourceMap: true,
     // https://webpack.js.org/configuration/devtool/#production
-    devtool: "#source-map",
+    devtool: "none",
 
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.

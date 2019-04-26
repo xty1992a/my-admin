@@ -60,4 +60,16 @@ router.get("/upload/qiniu_token", async (req, res, next) => {
   });
 });
 
+router.get("/upload/del_qiniu", async (req, res, next) => {
+  if (!req.query.key) {
+    res.json({
+      success: false,
+      message: "key is required!"
+    });
+    return;
+  }
+  let result = await upload.delItem(req.query.key);
+  res.json(result);
+});
+
 module.exports = router;

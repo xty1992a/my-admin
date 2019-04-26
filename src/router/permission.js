@@ -50,7 +50,7 @@ router.beforeEach(async (to, from, next) => {
   // 未登录重定向登录页
   if (!login) {
     log(`you should login before visit this page!`);
-    next("/Login");
+    next(`/Login?redirect_url=${to.fullPath}`);
     return;
   }
 

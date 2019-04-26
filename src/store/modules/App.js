@@ -8,7 +8,7 @@ const type = parseInt(
 export default {
   namespaced: true,
   state: {
-    asideShow: !isMobile,
+    asideShow: true,
     navShow: true,
     themeType: type,
     isMobile
@@ -23,6 +23,7 @@ export default {
       state.themeType = type;
     },
     TOGGLE_ASIDE: state => (state.asideShow = !state.asideShow),
+    SET_ASIDE: (state, flag) => (state.asideShow = flag),
     TOGGLE_NAV: (state, flag) =>
       (state.navShow = flag === undefined ? !state.navShow : flag)
   },
