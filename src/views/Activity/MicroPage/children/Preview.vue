@@ -37,7 +37,7 @@ export default {
   watch: {
     data: {
       handler(now) {
-        console.log(this.frame);
+        // console.log(this.frame);
         if (!this.frame) return;
         this.frame.postMessage({ type: "data-change", data: now }, "*");
       },

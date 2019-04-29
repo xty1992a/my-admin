@@ -26,7 +26,9 @@
       <el-col :span="6" style="padding: 10px;">字体大小</el-col>
       <el-col :span="18">
         <el-select v-model="localData.size">
-          <el-option :value="it" v-for="it in sizeList" :key="it">{{it}}</el-option>
+          <el-option :value="it" v-for="it in sizeList" :key="it">{{
+            it
+          }}</el-option>
         </el-select>
       </el-col>
     </el-row>
@@ -34,48 +36,51 @@
 </template>
 
 <script>
-  export default {
-	name: 'MicroTitle',
-	components: {},
-	props: {
-	  data: Object,
-	  edit: Function,
-	},
-	data() {
-	  return {
-		localData: {},
-	  }
-	},
-	created() {
-	  this.localData = {
-		...this.data.data || {
-		  text: '',
-		  color: '',
-		  align: '',
-		  size: 14,
-		},
-	  }
-	},
-	computed: {
-	  sizeList() {
-		return [14, 16, 18, 20, 22, 24, 28, 30, 32, 34, 36, 38, 40, 42]
-	  },
-	},
-	watch: {
-	  localData: {
-		handler(now) {
-		  this.edit && this.edit({...this.data, data: now})
-		},
-	  },
-	},
+export default {
+  name: "MicroTitle",
+  components: {},
+  props: {
+    data: Object,
+    edit: Function
+  },
+  data() {
+    return {
+      localData: {}
+    };
+  },
+  computed: {
+    sizeList() {
+      return [14, 16, 18, 20, 22, 24, 28, 30, 32, 34, 36, 38, 40, 42];
+    }
+  },
+  watch: {
+    "data.key": {
+      handler(now) {
+        this.localData = {
+          ...(this.data.data || {
+            text: "",
+            color: "",
+            align: "",
+            size: 14
+          })
+        };
+      },
+      immediate: true
+    },
+    localData: {
+      handler(now) {
+        this.edit && this.edit({ ...this.data, data: { ...now } });
+      },
+      deep: true
+    }
   }
+};
 </script>
 
 <style lang="less" rel="stylesheet/less">
-
-  .micro-title {
-    .el-row {
-      margin-bottom: 15px;
-    }
+.micro-title {
+  .el-row {
+    margin-bottom: 15px;
   }
+}
 </style>
