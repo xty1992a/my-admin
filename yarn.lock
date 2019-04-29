@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@redbuck/image-uploader@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@redbuck/image-uploader/-/image-uploader-0.0.5.tgz#c1f0930d26366e1bf6452a10cf91751ddeeacebb"
+"@redbuck/image-uploader@0.1.11":
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/@redbuck/image-uploader/-/image-uploader-0.1.11.tgz#5a9cb78a3a1b9d202549486b9aeddd03b108fa8f"
   dependencies:
     cropperjs "^1.4.3"
     preact "^8.4.2"

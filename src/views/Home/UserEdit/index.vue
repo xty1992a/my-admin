@@ -78,8 +78,6 @@ import Avatar from "@/components/Avatar";
 import LayoutBlock from "@/components/LayoutBlock";
 import * as API from "../../../api";
 
-import uploadGen from "@/utils/uploadGen";
-
 const copy = o => JSON.parse(JSON.stringify(o));
 
 export default {
@@ -107,11 +105,13 @@ export default {
       this.uploader = new ImageUploader({
         width: 300,
         height: 300,
-        // 默认输出base64,表单提交需要转为blob
         blob: true,
         el: this.$refs.avatarBtn.$el,
-        // 配置upload方法,将图片上传至七牛
-        upload: await uploadGen(),
+        uploadUrl: "http://up-z2.qiniup.com",
+        async getFormDataAsync(callback) {
+          let res = await API.getQiNiuToken();
+          callback(res.success ? res.data : {});
+        },
         fileName: "file"
       });
       this.uploader.on("upload", res => {
