@@ -30,11 +30,12 @@
 import Sorter from "@redbuck/sorter";
 import DelAble from "@/components/DelAble";
 import Carousel from "./Carousel";
+import MagicCode from "./MagicCode";
 import MicroTitle from "./MicroTitle";
 
 export default {
   name: "Layer",
-  components: { Carousel, DelAble, MicroTitle },
+  components: { Carousel, DelAble, MicroTitle, MagicCode },
   props: {
     value: {
       type: Array
@@ -92,8 +93,8 @@ export default {
 @import "../../../../../styles/variable";
 
 .layer {
-  width: 360px;
-  min-height: 640px;
+  width: 377px;
+  min-height: 667px;
   position: relative;
 
   .item {

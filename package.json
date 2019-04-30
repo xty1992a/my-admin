@@ -11,7 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "@redbuck/image-uploader": "0.1.11",
+    "@redbuck/image-uploader": "0.1.14",
     "@redbuck/sorter": "^0.0.4",
     "axios": "^0.18.0",
     "clipboard": "^2.0.4",

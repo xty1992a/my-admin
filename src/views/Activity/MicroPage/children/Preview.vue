@@ -23,14 +23,15 @@ export default {
   mounted() {
     this.$refs.frame.onload = () => {
       this.frame = this.$refs.frame.contentWindow || null;
+      console.log("frame load");
+      this.frame.postMessage({ type: "data-change", data: this.data }, "*");
     };
   },
-  methods: {},
   computed: {
     previewPath() {
       return "/mobile/#/MicroPage";
       return process.env.NODE_ENV === "development"
-        ? "http://192.168.2.98:3001/mobile/#/MicroPage"
+        ? "http://localhost:8081/#/MicroPage"
         : "/mobile/#/MicroPage";
     }
   },
@@ -41,7 +42,8 @@ export default {
         if (!this.frame) return;
         this.frame.postMessage({ type: "data-change", data: now }, "*");
       },
-      deep: true
+      deep: true,
+      immediate: true
     }
   }
 };
@@ -50,8 +52,8 @@ export default {
 <style lang="less" rel="stylesheet/less">
 .preview {
   //.shadow;
-  width: 360px;
-  height: 640px;
+  width: 377px;
+  height: 667px;
   overflow: hidden;
 
   iframe {
