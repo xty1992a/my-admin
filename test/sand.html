@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,user-scalable=no"
+    />
+    <script
+      type="text/javascript"
+      src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"
+    ></script>
+    <title>Title</title>
+    <style>
+      .sand-dom {
+        font-size: 0;
+      }
+
+      .sand-dom span {
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+  <body>
+    <img
+      src="../src/assets/imgs/mode_1.png"
+      alt=""
+      id="img"
+      style="width: 142px;"
+    />
+
+    <script type="text/javascript">
+      const img = document.getElementById("img");
+
+      function createPx(r, g, b, a) {
+        const dom = document.createElement("span");
+        const size = 1.5;
+        dom.style.width = size + "px";
+        dom.style.height = size + "px";
+        dom.style.display = "inline-block";
+        dom.style.backgroundColor = `rgba(${r},${g},${b},${a})`;
+        return dom;
+      }
+
+      function splitImageData(data, row, col) {
+        const fragment = document.createDocumentFragment();
+        console.log(data.length);
+
+        const list = [];
+        for (var i = 0; i < data.length; i += 4) {
+          list.push({
+            r: data[i],
+            g: data[i + 1],
+            b: data[i + 2],
+            a: data[i + 3]
+          });
+        }
+        console.log(list.length);
+        list.forEach((it, index) => {
+          if (index % 10) return;
+          let { r, g, b, a } = it;
+          fragment.appendChild(createPx(r, g, b, a));
+        });
+        /*	for (var i = 0; i < data.length; i += 4) {
+          list.push('1')
+          const r = data[i]
+          const g = data[i + 1]
+          const b = data[i + 2]
+          const a = data[i + 3]
+          // fragment.appendChild(createPx(r, g, b, a))
+        }*/
+        return fragment;
+      }
+
+      function createSandDom(imageData) {
+        const dom = document.createElement("div");
+        dom.className = "sand-dom";
+        const { clientWidth, clientHeight } = img;
+        dom.style.width = clientWidth + "px";
+        dom.style.height = clientHeight + "px";
+        dom.appendChild(
+          splitImageData(imageData.data, clientWidth, clientHeight)
+        );
+        return dom;
+      }
+
+      html2canvas(img).then(function(canvas) {
+        let ctx = canvas.getContext("2d");
+        let data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const sandDom = createSandDom(data);
+        document.body.appendChild(sandDom);
+      });
+    </script>
+  </body>
+</html>
